@@ -1,0 +1,363 @@
+// Home Page - Yemen Smart Agriculture Platform
+'use client';
+
+import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Header from '@/components/Header';
+import { products, articles, experts } from '@/data/seed';
+
+export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white" dir="rtl">
+      <Header />
+
+      {/* Hero Section */}
+      <section className="py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            منصة الزراعة الذكية
+            <span className="text-green-600"> اليمنية</span>
+          </h1>
+          <p className="text-xl text-gray-600 mb-8">
+            منصة متكاملة تجمع المزارعين والموردين والخبراء الزراعيين في مكان واحد.
+            ابحث عن المنتجات، اقرأ المقالات، واحصل على استشارات من الخبراء.
+          </p>
+          
+          {/* Search Box */}
+          <form onSubmit={handleSearch} className="max-w-2xl mx-auto mb-8">
+            <div className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="ابحث عن منتج أو مقال أو خبير..."
+                className="w-full px-6 py-4 pr-12 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-500 shadow-sm"
+              />
+              <button
+                type="submit"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-600"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
+            <p className="text-sm text-gray-500 mt-2">
+              جرب البحث عن: أبامكتين، تسميد، مكافحة الآفات
+            </p>
+          </form>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/register"
+              className="px-8 py-3 bg-green-600 text-white text-lg font-medium rounded-lg hover:bg-green-700 transition-colors"
+            >
+              ابدأ الآن مجاناً
+            </Link>
+            <Link
+              href="/products"
+              className="px-8 py-3 border-2 border-green-600 text-green-600 text-lg font-medium rounded-lg hover:bg-green-50 transition-colors"
+            >
+              تصفح المنتجات
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            لماذا منصة الزراعة الذكية؟
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+                <span className="text-3xl">🌾</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">للمزارعين</h3>
+              <p className="text-gray-600">
+                ابحث عن أفضل المنتجات الزراعية واحصل على نصائح من الخبراء
+              </p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-3xl">🏪</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">للموردين</h3>
+              <p className="text-gray-600">
+                اعرض منتجاتك وتواصل مع المزارعين في جميع أنحاء اليمن
+              </p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
+                <span className="text-3xl">👨‍🔬</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">للخبراء</h3>
+              <p className="text-gray-600">
+                شارك معرفتك وقدم استشارات للمزارعين المحتاجين
+              </p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                <span className="text-3xl">🔍</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">بحث ذكي</h3>
+              <p className="text-gray-600">
+                ابحث في المنتجات والمقالات والخبراء من مكان واحد
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-green-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+            <div>
+              <p className="text-4xl font-bold">{products.length}+</p>
+              <p className="text-green-100 mt-1">منتج زراعي</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold">{articles.length}+</p>
+              <p className="text-green-100 mt-1">مقال تعليمي</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold">{experts.length}+</p>
+              <p className="text-green-100 mt-1">خبير زراعي</p>
+            </div>
+            <div>
+              <p className="text-4xl font-bold">1000+</p>
+              <p className="text-green-100 mt-1">مزارع مسجل</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Products */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold text-gray-900">أحدث المنتجات</h2>
+            <Link href="/products" className="text-green-600 hover:underline">
+              عرض الكل
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.slice(0, 3).map((product) => (
+              <Link
+                key={product.id}
+                href={`/products/${product.slug}`}
+                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
+              >
+                <div className="h-40 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                  <span className="text-5xl">{product.imageEmoji}</span>
+                </div>
+                <div className="p-4">
+                  <span className="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full mb-2">
+                    {product.category}
+                  </span>
+                  <h3 className="font-semibold text-gray-900">{product.title}</h3>
+                  <p className="text-green-600 font-bold mt-2">
+                    {product.priceRetail.toLocaleString()} ر.ي
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Articles */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="text-2xl font-bold text-gray-900">أحدث المقالات</h2>
+            <Link href="/articles" className="text-blue-600 hover:underline">
+              عرض الكل
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {articles.slice(0, 2).map((article) => (
+              <Link
+                key={article.id}
+                href={`/articles/${article.slug}`}
+                className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors overflow-hidden flex"
+              >
+                <div className="w-32 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center flex-shrink-0">
+                  <span className="text-4xl">{article.imageEmoji}</span>
+                </div>
+                <div className="p-4 flex-1">
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {article.tags.slice(0, 2).map((tag) => (
+                      <span key={tag} className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <h3 className="font-semibold text-gray-900 line-clamp-1">{article.title}</h3>
+                  <p className="text-sm text-gray-500 mt-1">{article.authorName}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* User Types Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+            انضم إلينا حسب تخصصك
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Farmer Card */}
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="text-center mb-6">
+                <span className="text-5xl">🌾</span>
+                <h3 className="text-2xl font-bold text-gray-900 mt-4">مزارع</h3>
+              </div>
+              <ul className="space-y-3 text-gray-600 mb-6">
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  تصفح المنتجات الزراعية
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  قراءة المقالات التعليمية
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  طلب استشارات من الخبراء
+                </li>
+              </ul>
+              <Link
+                href="/register?role=farmer"
+                className="block w-full text-center py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                سجل كمزارع
+              </Link>
+            </div>
+
+            {/* Supplier Card */}
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="text-center mb-6">
+                <span className="text-5xl">🏪</span>
+                <h3 className="text-2xl font-bold text-gray-900 mt-4">مورد</h3>
+              </div>
+              <ul className="space-y-3 text-gray-600 mb-6">
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  عرض منتجاتك للمزارعين
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  إدارة المخزون والأسعار
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  التواصل المباشر مع العملاء
+                </li>
+              </ul>
+              <Link
+                href="/register?role=supplier"
+                className="block w-full text-center py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                سجل كمورد
+              </Link>
+            </div>
+
+            {/* Expert Card */}
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="text-center mb-6">
+                <span className="text-5xl">👨‍🔬</span>
+                <h3 className="text-2xl font-bold text-gray-900 mt-4">خبير زراعي</h3>
+              </div>
+              <ul className="space-y-3 text-gray-600 mb-6">
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  نشر مقالات تعليمية
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  تقديم استشارات للمزارعين
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="text-green-500">✓</span>
+                  بناء سمعتك المهنية
+                </li>
+              </ul>
+              <Link
+                href="/register?role=expert"
+                className="block w-full text-center py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+              >
+                سجل كخبير
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <span className="text-2xl">🌱</span>
+                <span className="font-bold">الزراعة الذكية</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                منصة متكاملة للزراعة في اليمن
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">روابط سريعة</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/products" className="hover:text-white">المنتجات</Link></li>
+                <li><Link href="/articles" className="hover:text-white">المقالات</Link></li>
+                <li><Link href="/experts" className="hover:text-white">الخبراء</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">الحساب</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li><Link href="/login" className="hover:text-white">تسجيل الدخول</Link></li>
+                <li><Link href="/register" className="hover:text-white">إنشاء حساب</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4">تواصل معنا</h4>
+              <p className="text-gray-400 text-sm">
+                info@yemen-agri.com
+              </p>
+            </div>
+          </div>
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>© 2024 منصة الزراعة الذكية اليمنية. جميع الحقوق محفوظة.</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

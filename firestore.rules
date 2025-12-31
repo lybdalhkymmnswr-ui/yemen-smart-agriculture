@@ -1,0 +1,156 @@
+rules_version = '2';
+
+// Firestore Security Rules for Yemen Smart Agriculture Platform
+// Implements Role-Based Access Control (RBAC) for 4 roles: farmer, supplier, expert, admin
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to get user document
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    // Helper function to check user role
+    function hasRole(role) {
+      return isAuthenticated() && getUserData().role == role;
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return hasRole('admin');
+    }
+    
+    // Helper function to check if user is supplier
+    function isSupplier() {
+      return hasRole('supplier');
+    }
+    
+    // Helper function to check if user is expert
+    function isExpert() {
+      return hasRole('expert');
+    }
+    
+    // Helper function to check if user is active
+    function isActiveUser() {
+      return isAuthenticated() && getUserData().status == 'active';
+    }
+    
+    // ============================================
+    // USERS COLLECTION (users/{uid})
+    // ============================================
+    // - Users can read their own document
+    // - Admin can read all user documents
+    // - Users can update their own profile (except role and status)
+    // - Admin can update any user document
+    match /users/{uid} {
+      // Read: Own document or admin
+      allow read: if isAuthenticated() && 
+                     (request.auth.uid == uid || isAdmin());
+      
+      // Create: Only during registration (handled by server/admin SDK)
+      // For client-side registration, allow create if uid matches auth uid
+      allow create: if isAuthenticated() && 
+                       request.auth.uid == uid &&
+                       request.resource.data.uid == uid &&
+                       request.resource.data.role in ['farmer', 'supplier', 'expert'] &&
+                       request.resource.data.status in ['active', 'pending'];
+      
+      // Update: Own document (restricted fields) or admin (all fields)
+      allow update: if isAuthenticated() && (
+        // User updating own profile (cannot change role or status)
+        (request.auth.uid == uid && 
+         !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'status'])) ||
+        // Admin can update anything
+        isAdmin()
+      );
+      
+      // Delete: Admin only
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // PRODUCTS COLLECTION (products/{productId})
+    // ============================================
+    // - Public read for active products
+    // - Suppliers can create/update their own products
+    // - Admin can manage all products
+    match /products/{productId} {
+      // Read: Public for active products, supplier for own, admin for all
+      allow read: if resource.data.status == 'active' ||
+                     (isAuthenticated() && resource.data.supplierId == request.auth.uid) ||
+                     isAdmin();
+      
+      // Create: Supplier only, must set own supplierId
+      allow create: if isSupplier() && 
+                       isActiveUser() &&
+                       request.resource.data.supplierId == request.auth.uid;
+      
+      // Update: Own products (supplier) or admin
+      allow update: if (isSupplier() && 
+                        isActiveUser() &&
+                        resource.data.supplierId == request.auth.uid &&
+                        request.resource.data.supplierId == request.auth.uid) ||
+                       isAdmin();
+      
+      // Delete: Own products (supplier) or admin
+      allow delete: if (isSupplier() && resource.data.supplierId == request.auth.uid) ||
+                       isAdmin();
+    }
+    
+    // ============================================
+    // ARTICLES COLLECTION (articles/{articleId})
+    // ============================================
+    // - Public read for published articles
+    // - Experts can create/update their own articles
+    // - Admin can manage all articles
+    match /articles/{articleId} {
+      // Read: Public for published articles, expert for own, admin for all
+      allow read: if resource.data.status == 'published' ||
+                     (isAuthenticated() && resource.data.authorId == request.auth.uid) ||
+                     isAdmin();
+      
+      // Create: Expert only, must set own authorId
+      allow create: if isExpert() && 
+                       isActiveUser() &&
+                       request.resource.data.authorId == request.auth.uid;
+      
+      // Update: Own articles (expert) or admin
+      allow update: if (isExpert() && 
+                        isActiveUser() &&
+                        resource.data.authorId == request.auth.uid &&
+                        request.resource.data.authorId == request.auth.uid) ||
+                       isAdmin();
+      
+      // Delete: Own articles (expert) or admin
+      allow delete: if (isExpert() && resource.data.authorId == request.auth.uid) ||
+                       isAdmin();
+    }
+    
+    // ============================================
+    // SEARCH INDEX COLLECTION (search_index/{docId})
+    // ============================================
+    // - Read-only for all authenticated users (or public if desired)
+    // - Write only through admin SDK / cloud functions
+    match /search_index/{docId} {
+      // Read: Allow for all logged-in users
+      allow read: if isAuthenticated();
+      
+      // Write: Denied for clients (managed by server/admin SDK)
+      // In production, use Cloud Functions to update search index
+      allow write: if false;
+    }
+    
+    // ============================================
+    // DEFAULT: Deny all other access
+    // ============================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

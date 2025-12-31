@@ -1,0 +1,12 @@
+# Robots.txt for Yemen Smart Agriculture Platform
+# https://yemen-smart-agriculture.vercel.app
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yemen-smart-agriculture.vercel.app/sitemap.xml
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /dashboard/admin/
