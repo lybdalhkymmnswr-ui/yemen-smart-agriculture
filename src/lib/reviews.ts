@@ -11,7 +11,6 @@ import {
   deleteDoc,
   query,
   where,
-  orderBy,
   limit,
   Timestamp,
   serverTimestamp,
@@ -191,32 +190,45 @@ export async function getProductReviews(
   productId: string,
   limitCount: number = 50
 ): Promise<Review[]> {
+  console.log('=== getProductReviews START ===');
+  console.log('Input productId:', productId);
+  console.log('Collection path: products/' + productId + '/reviews');
+  
   const reviewsRef = getReviewsCollection(productId);
+  console.log('reviewsRef path:', reviewsRef.path);
+  
+  // Query without orderBy to avoid index requirement
   const q = query(
     reviewsRef,
-    orderBy('createdAt', 'desc'),
     limit(limitCount)
   );
 
-  const querySnapshot = await getDocs(q);
-  console.log('=== getProductReviews Debug ===');
-  console.log('productId:', productId);
-  console.log('docs count:', querySnapshot.docs.length);
+  try {
+    const querySnapshot = await getDocs(q);
+    console.log('=== getProductReviews Debug ===');
+    console.log('productId:', productId);
+    console.log('docs count:', querySnapshot.docs.length);
+    console.log('querySnapshot.empty:', querySnapshot.empty);
   
-  return querySnapshot.docs.map(doc => {
-    const data = doc.data();
-    console.log('Review doc id:', doc.id, 'data:', data);
-    return {
-      id: doc.id,
-      productId,
-      userId: data.userId || '',
-      userName: data.userName || 'مستخدم',
-      rating: data.rating || 0,
-      comment: data.comment || '',
-      createdAt: data.createdAt,
-      updatedAt: data.updatedAt || data.createdAt,
-    } as Review;
-  });
+    return querySnapshot.docs.map(doc => {
+      const data = doc.data();
+      console.log('Review doc id:', doc.id, 'data:', data);
+      return {
+        id: doc.id,
+        productId,
+        userId: data.userId || '',
+        userName: data.userName || 'مستخدم',
+        rating: data.rating || 0,
+        comment: data.comment || '',
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt || data.createdAt,
+      } as Review;
+    });
+  } catch (error) {
+    console.error('=== getProductReviews ERROR ===');
+    console.error('Error:', error);
+    return [];
+  }
 }
 
 /**
@@ -239,10 +251,10 @@ export async function getUserReviewForProduct(
     return null;
   }
 
-  const doc = querySnapshot.docs[0];
-  const data = doc.data();
+  const docSnap = querySnapshot.docs[0];
+  const data = docSnap.data();
   return {
-    id: doc.id,
+    id: docSnap.id,
     productId,
     userId: data.userId || '',
     userName: data.userName || 'مستخدم',
