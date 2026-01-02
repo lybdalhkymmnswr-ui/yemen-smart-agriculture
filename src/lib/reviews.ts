@@ -34,9 +34,14 @@ export interface ProductRating {
   totalReviews: number;
 }
 
-// Collection path helper
-const getReviewsCollection = (productId: string) => 
-  collection(db, 'products', productId, 'reviews');
+// Collection path helper - reads from products/{productId}/reviews
+const getReviewsCollection = (productId: string) => {
+  const collectionRef = collection(db, 'products', productId, 'reviews');
+  console.log('=== getReviewsCollection ===');
+  console.log('productId:', productId);
+  console.log('Full path:', `products/${productId}/reviews`);
+  return collectionRef;
+};
 
 /**
  * Add a new review for a product
@@ -192,29 +197,33 @@ export async function getProductReviews(
 ): Promise<Review[]> {
   console.log('=== getProductReviews START ===');
   console.log('Input productId:', productId);
-  console.log('Collection path: products/' + productId + '/reviews');
+  console.log('Expected path: products/' + productId + '/reviews');
+  console.log('db instance:', !!db);
   
-  const reviewsRef = getReviewsCollection(productId);
-  console.log('reviewsRef path:', reviewsRef.path);
-  
-  // Query without orderBy to avoid index requirement
-  const q = query(
-    reviewsRef,
-    limit(limitCount)
-  );
-
   try {
+    const reviewsRef = getReviewsCollection(productId);
+    console.log('reviewsRef created successfully');
+    console.log('reviewsRef.path:', reviewsRef.path);
+    
+    // Query without orderBy to avoid index requirement
+    const q = query(
+      reviewsRef,
+      limit(limitCount)
+    );
+    console.log('Query created, executing getDocs...');
+
     const querySnapshot = await getDocs(q);
-    console.log('=== getProductReviews Debug ===');
-    console.log('productId:', productId);
+    console.log('=== getProductReviews RESULT ===');
     console.log('docs count:', querySnapshot.docs.length);
     console.log('querySnapshot.empty:', querySnapshot.empty);
+    console.log('querySnapshot.size:', querySnapshot.size);
   
-    return querySnapshot.docs.map(doc => {
-      const data = doc.data();
-      console.log('Review doc id:', doc.id, 'data:', data);
+    const reviews = querySnapshot.docs.map(docSnap => {
+      const data = docSnap.data();
+      console.log('Review doc id:', docSnap.id);
+      console.log('Review data:', JSON.stringify(data));
       return {
-        id: doc.id,
+        id: docSnap.id,
         productId,
         userId: data.userId || '',
         userName: data.userName || 'مستخدم',
@@ -224,9 +233,15 @@ export async function getProductReviews(
         updatedAt: data.updatedAt || data.createdAt,
       } as Review;
     });
+    
+    console.log('=== getProductReviews END ===');
+    console.log('Returning', reviews.length, 'reviews');
+    return reviews;
   } catch (error) {
     console.error('=== getProductReviews ERROR ===');
-    console.error('Error:', error);
+    console.error('Error type:', typeof error);
+    console.error('Error message:', error instanceof Error ? error.message : String(error));
+    console.error('Full error:', error);
     return [];
   }
 }
