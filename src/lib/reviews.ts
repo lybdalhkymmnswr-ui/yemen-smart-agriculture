@@ -17,6 +17,11 @@ import {
 } from 'firebase/firestore';
 import { db } from './firebase';
 
+// Debug: Log db info at module load
+console.log('=== Reviews Module Loaded ===');
+console.log('db object:', db);
+console.log('db._databaseId:', (db as any)._databaseId);
+
 // Types
 export interface Review {
   id: string;
@@ -198,7 +203,8 @@ export async function getProductReviews(
   console.log('=== getProductReviews START ===');
   console.log('Input productId:', productId);
   console.log('Expected path: products/' + productId + '/reviews');
-  console.log('db instance:', !!db);
+  console.log('db object exists:', !!db);
+  console.log('db._databaseId:', (db as any)._databaseId);
   
   try {
     const reviewsRef = getReviewsCollection(productId);
@@ -213,7 +219,8 @@ export async function getProductReviews(
     console.log('Query created, executing getDocs...');
 
     const querySnapshot = await getDocs(q);
-    console.log('=== getProductReviews RESULT ===');
+    console.log('=== getProductReviews Debug ===');
+    console.log('productId:', productId);
     console.log('docs count:', querySnapshot.docs.length);
     console.log('querySnapshot.empty:', querySnapshot.empty);
     console.log('querySnapshot.size:', querySnapshot.size);
