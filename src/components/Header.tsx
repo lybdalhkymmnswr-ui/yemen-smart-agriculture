@@ -71,6 +71,9 @@ export default function Header() {
             <Link href="/soil-types" className="text-amber-600 hover:text-amber-700 transition-colors text-sm font-medium">
               دليل التربة
             </Link>
+            <Link href="/calculator" className="text-green-600 hover:text-green-700 transition-colors text-sm font-medium">
+              الحاسبة
+            </Link>
             
             {loading ? (
               <div className="w-20 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
@@ -172,6 +175,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 دليل التربة
+              </Link>
+              <Link
+                href="/calculator"
+                className="px-4 py-2 text-green-600 hover:bg-green-50 rounded-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                الحاسبة
               </Link>
               
               {loading ? (
