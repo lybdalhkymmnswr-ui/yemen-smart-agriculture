@@ -2,7 +2,7 @@
 
 // Soil and Irrigation Calculator - Static Page with Simple JavaScript Logic
 import { useState } from 'react';
-import { Metadata } from 'next';
+
 import Link from 'next/link';
 import Header from '@/components/Header';
 
