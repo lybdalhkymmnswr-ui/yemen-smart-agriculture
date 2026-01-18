@@ -20,6 +20,7 @@ import { db } from './firebase';
 // Debug: Log db info at module load
 console.log('=== Reviews Module Loaded ===');
 console.log('db object:', db);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 console.log('db._databaseId:', (db as any)._databaseId);
 
 // Types
@@ -204,7 +205,8 @@ export async function getProductReviews(
   console.log('Input productId:', productId);
   console.log('Expected path: products/' + productId + '/reviews');
   console.log('db object exists:', !!db);
-  console.log('db._databaseId:', (db as any)._databaseId);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+console.log('db._databaseId:', (db as any)._databaseId);
   
   try {
     const reviewsRef = getReviewsCollection(productId);
