@@ -1,8 +1,7 @@
 'use client';
 
 // Soil and Irrigation Calculator - Static Page with Simple JavaScript Logic
-import { useState } from 'react';
-
+import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import Header from '@/components/Header';
 
@@ -146,27 +145,64 @@ const recommendations: Record<string, {
 };
 
 export default function CalculatorPage() {
-  const [soilType, setSoilType] = useState('');
-  const [cropType, setCropType] = useState('');
-  const [irrigationType, setIrrigationType] = useState('');
+  // Controlled state for form fields
+  const [soilType, setSoilType] = useState<string>('');
+  const [cropType, setCropType] = useState<string>('');
+  const [irrigationType, setIrrigationType] = useState<string>('');
+  
+  // Result state
   const [result, setResult] = useState<typeof recommendations[string] | null>(null);
-  const [showResult, setShowResult] = useState(false);
+  const [showResult, setShowResult] = useState<boolean>(false);
+  
+  // Error state
+  const [showError, setShowError] = useState<boolean>(false);
 
-  const handleCalculate = () => {
+  // Check if form is complete
+  const isFormComplete = Boolean(soilType && cropType && irrigationType);
+
+  // Handle soil type change
+  const handleSoilChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSoilType(e.target.value);
+    setShowResult(false);
+    setShowError(false);
+  }, []);
+
+  // Handle crop type change
+  const handleCropChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCropType(e.target.value);
+    setShowResult(false);
+    setShowError(false);
+  }, []);
+
+  // Handle irrigation type change
+  const handleIrrigationChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setIrrigationType(e.target.value);
+    setShowResult(false);
+    setShowError(false);
+  }, []);
+
+  // Handle calculate button click
+  const handleCalculate = useCallback(() => {
+    // Validate all fields are selected
     if (!soilType || !cropType || !irrigationType) {
+      setShowError(true);
+      setShowResult(false);
       return;
     }
 
+    // Build the key and get recommendation
     const key = `${soilType}-${cropType}-${irrigationType}`;
     const recommendation = recommendations[key];
     
     if (recommendation) {
       setResult(recommendation);
       setShowResult(true);
+      setShowError(false);
     }
-  };
+  }, [soilType, cropType, irrigationType]);
 
-  const getRecommendationColor = (level: string) => {
+  // Get color based on recommendation level
+  const getRecommendationColor = (level: string): string => {
     switch (level) {
       case 'light':
         return 'bg-green-100 text-green-800 border-green-300';
@@ -178,8 +214,6 @@ export default function CalculatorPage() {
         return 'bg-gray-100 text-gray-800 border-gray-300';
     }
   };
-
-  const isFormComplete = soilType && cropType && irrigationType;
 
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
@@ -198,6 +232,16 @@ export default function CalculatorPage() {
       <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-xl shadow-sm p-6 md:p-8">
           
+          {/* Error Message */}
+          {showError && (
+            <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
+              <p className="text-red-700 flex items-center gap-2">
+                <span className="text-xl">⚠️</span>
+                <span>يرجى اختيار جميع الحقول قبل الحساب</span>
+              </p>
+            </div>
+          )}
+          
           {/* Input Fields */}
           <div className="space-y-6">
             
@@ -208,9 +252,12 @@ export default function CalculatorPage() {
               </label>
               <select
                 id="soil-type"
+                name="soilType"
                 value={soilType}
-                onChange={(e) => setSoilType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 bg-white"
+                onChange={handleSoilChange}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 bg-white ${
+                  showError && !soilType ? 'border-red-300' : 'border-gray-300'
+                }`}
               >
                 <option value="">-- اختر نوع التربة --</option>
                 <option value="sandy">التربة الرملية</option>
@@ -228,9 +275,12 @@ export default function CalculatorPage() {
               </label>
               <select
                 id="crop-type"
+                name="cropType"
                 value={cropType}
-                onChange={(e) => setCropType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 bg-white"
+                onChange={handleCropChange}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 bg-white ${
+                  showError && !cropType ? 'border-red-300' : 'border-gray-300'
+                }`}
               >
                 <option value="">-- اختر نوع المحصول --</option>
                 <option value="qat">قات</option>
@@ -245,9 +295,12 @@ export default function CalculatorPage() {
               </label>
               <select
                 id="irrigation-type"
+                name="irrigationType"
                 value={irrigationType}
-                onChange={(e) => setIrrigationType(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 bg-white"
+                onChange={handleIrrigationChange}
+                className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-gray-900 bg-white ${
+                  showError && !irrigationType ? 'border-red-300' : 'border-gray-300'
+                }`}
               >
                 <option value="">-- اختر طريقة الري --</option>
                 <option value="drip">تنقيط</option>
@@ -257,11 +310,12 @@ export default function CalculatorPage() {
 
             {/* Calculate Button */}
             <button
+              type="button"
               onClick={handleCalculate}
               disabled={!isFormComplete}
               className={`w-full py-4 px-6 rounded-lg text-lg font-bold transition-all ${
                 isFormComplete
-                  ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer'
+                  ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer active:bg-green-800'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
@@ -271,7 +325,7 @@ export default function CalculatorPage() {
 
           {/* Result Section */}
           {showResult && result && (
-            <div className="mt-8 space-y-4 animate-fade-in">
+            <div className="mt-8 space-y-4">
               
               {/* Result Card */}
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
@@ -312,6 +366,7 @@ export default function CalculatorPage() {
                   للحصول على توصية موسعة ودقيقة حسب منطقتك، عمر النبات، ونوع السماد، يمكنك طلب النسخة المدفوعة.
                 </p>
                 <button
+                  type="button"
                   disabled
                   className="w-full py-3 px-4 bg-amber-200 text-amber-700 rounded-lg font-medium cursor-not-allowed opacity-75"
                 >
