@@ -508,6 +508,55 @@ export default function CalculatorPage() {
                 </div>
               </div>
 
+              {/* Educational Section - Why This Recommendation */}
+              <div className="bg-white rounded-xl p-6 border-2 border-indigo-200">
+                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <span className="text-2xl">📚</span>
+                  لماذا هذه التوصية؟
+                </h3>
+
+                <div className="space-y-4">
+                  {/* سبب التوصية */}
+                  <div className="bg-indigo-50 rounded-lg p-4">
+                    <h4 className="font-bold text-indigo-800 mb-2 flex items-center gap-2">
+                      <span>🎯</span>
+                      سبب التوصية
+                    </h4>
+                    <p className="text-indigo-700 leading-relaxed">
+                      {soilType === 'sandy' && 'التربة الرملية لا تحتفظ بالماء جيداً، فالماء ينزل بسرعة لأعماق بعيدة عن الجذور. لذلك تحتاج ري متكرر بكميات صغيرة.'}
+                      {soilType === 'clay' && 'التربة الطينية تحتفظ بالماء لفترة طويلة جداً، والإفراط في الري يخنق الجذور ويسبب تعفنها. لذلك يجب الحذر وتقليل الري.'}
+                      {soilType === 'arid' && 'التربة الجافة تعاني من تراكم الأملاح، والري الغزير يرفع الأملاح للسطح. لذلك يُفضّل التنقيط لتقليل هذه المشكلة.'}
+                      {soilType === 'dark' && 'التربة السوداء غنية بالمادة العضوية وتحتفظ بالماء بشكل متوازن. لذلك تحتاج ري خفيف ومنتظم فقط.'}
+                      {soilType === 'mixed' && 'التربة المختلطة متوازنة وتحتفظ بالماء بشكل جيد. يمكنك الري بشكل طبيعي مع مراقبة رطوبة التربة.'}
+                    </p>
+                  </div>
+
+                  {/* مثال عملي */}
+                  <div className="bg-teal-50 rounded-lg p-4">
+                    <h4 className="font-bold text-teal-800 mb-2 flex items-center gap-2">
+                      <span>💡</span>
+                      مثال عملي
+                    </h4>
+                    <p className="text-teal-700 leading-relaxed">
+                      {irrigationType === 'drip' && 'مثال: لو عندك شجرة قات بالتنقيط، ضع نقاطتين على جانبي الشجرة (ليس على الجذع مباشرة). هذا يوزع الماء بشكل أفضل ويشجع الجذور على الانتشار.'}
+                      {irrigationType === 'flood' && 'مثال: لو عندك حوض خضروات بالغمر، اسقِ ببطء حتى يتشرب الماء تدريجياً. لا تغمر بسرعة لأن الماء سيجري على السطح ولن ينزل للجذور.'}
+                    </p>
+                  </div>
+
+                  {/* تحذير من خطأ شائع */}
+                  <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                    <h4 className="font-bold text-red-800 mb-2 flex items-center gap-2">
+                      <span>🚫</span>
+                      خطأ شائع تجنّبه
+                    </h4>
+                    <p className="text-red-700 leading-relaxed">
+                      {cropType === 'qat' && 'خطأ شائع مع القات: الري الغزير قبل القطف مباشرة. هذا يجعل الأوراق مائية ويقلل جودتها. الصحيح: قلل الري قبل القطف بيومين.'}
+                      {cropType === 'vegetables' && 'خطأ شائع مع الخضروات: الري في وقت الظهيرة الحار. الماء يتبخر بسرعة وقطرات الماء على الأوراق تسبب حروق. الصحيح: اسقِ صباحاً باكراً أو مساءً.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Contextual Tips Section */}
               {contextualTips.length > 0 && (
                 <div className="bg-white rounded-xl p-6 border-2 border-purple-200">

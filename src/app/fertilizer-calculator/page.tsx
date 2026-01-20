@@ -440,6 +440,59 @@ export default function FertilizerCalculatorPage() {
           </div>
         )}
 
+        {/* Educational Section - Why This Recommendation */}
+        {result && (
+          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8 border-2 border-indigo-200">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <span className="text-2xl">📚</span>
+              لماذا هذه التوصية؟
+            </h2>
+
+            <div className="space-y-6">
+              {/* سبب التوصية */}
+              <div className="bg-indigo-50 rounded-lg p-4">
+                <h3 className="font-bold text-indigo-800 mb-3 flex items-center gap-2">
+                  <span>🎯</span>
+                  سبب التوصية
+                </h3>
+                <p className="text-indigo-700 leading-relaxed">
+                  {growthStage === 'start' && 'في مرحلة البداية، يحتاج النبات إلى فوسفور عالي لتقوية الجذور وتأسيس نمو سليم. الجذور القوية = نبات قوي طوال الموسم.'}
+                  {growthStage === 'growth' && 'في مرحلة النمو الخضري، يحتاج النبات إلى نيتروجين عالي لبناء الأوراق والسيقان. النيتروجين هو "وقود" النمو الأخضر.'}
+                  {growthStage === 'production' && 'في مرحلة الإنتاج، يحتاج النبات إلى بوتاسيوم عالي لتحسين جودة الثمار وزيادة الحلاوة ومقاومة الأمراض.'}
+                </p>
+              </div>
+
+              {/* مثال عملي */}
+              <div className="bg-teal-50 rounded-lg p-4">
+                <h3 className="font-bold text-teal-800 mb-3 flex items-center gap-2">
+                  <span>💡</span>
+                  مثال عملي
+                </h3>
+                <p className="text-teal-700 leading-relaxed">
+                  {soilType === 'sandy' && 'مثال: لو عندك حوض 10×10 متر تربة رملية، بدل ما تضع كيس سماد كامل مرة واحدة، قسّمه على 4 دفعات خلال الشهر. التربة الرملية مثل "الغربال" - السماد ينزل بسرعة مع الماء.'}
+                  {soilType === 'clay' && 'مثال: لو عندك أرض طينية، سمّد قبل الري بساعتين على الأقل. التربة الطينية "تمسك" السماد، لكن لو سمّدت وهي مبللة، السماد يبقى على السطح ولا ينزل للجذور.'}
+                  {soilType === 'arid' && 'مثال: التربة الجافة تحتاج "تنشيط" أولاً. أضف سماد عضوي (روث) قبل السماد الكيماوي بأسبوع. هذا يحسّن قدرة التربة على الاحتفاظ بالعناصر.'}
+                  {soilType === 'dark' && 'مثال: التربة السوداء غنية طبيعياً. لو أضفت نفس كمية السماد التي يضيفها جارك في التربة الرملية، ستحرق النبات. قلل الكمية 20-30%.'}
+                  {soilType === 'mixed' && 'مثال: التربة المختلطة متوازنة. اتبع التوصيات الأساسية، وراقب لون الأوراق. لو اصفرّت = زِد النيتروجين. لو احمرّت الحواف = زِد البوتاسيوم.'}
+                </p>
+              </div>
+
+              {/* تحذير من خطأ شائع */}
+              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                <h3 className="font-bold text-red-800 mb-3 flex items-center gap-2">
+                  <span>🚫</span>
+                  خطأ شائع تجنّبه
+                </h3>
+                <p className="text-red-700 leading-relaxed">
+                  {irrigationMethod === 'drip' && 'خطأ شائع: وضع السماد الجاف بعيداً عن النقاطات. السماد يجب أن يكون في دائرة الترطيب حتى يذوب ويصل للجذور. الأفضل: استخدم سماد سائل مع ماء التنقيط.'}
+                  {irrigationMethod === 'flood' && 'خطأ شائع: التسميد بعد الري مباشرة. الماء الزائد يغسل السماد بعيداً عن الجذور. الصحيح: سمّد قبل الري، أو انتظر حتى تجف التربة قليلاً.'}
+                  {irrigationMethod === 'rain' && 'خطأ شائع: التسميد أثناء المطر الغزير. المطر القوي يغسل السماد قبل أن يمتصه النبات. الصحيح: سمّد قبل المطر الخفيف المتوقع، أو بعد المطر بيوم.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Contextual Tips Section */}
         {contextualTips.length > 0 && (
           <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8 border-2 border-purple-200">
