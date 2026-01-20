@@ -137,79 +137,104 @@ export default function HomePage() {
             ابدأ من التعرف على تربتك، ثم احسب احتياجاتك، وإذا واجهت مشكلة معقدة — اسأل الخبير.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Tool 1: Soil Guide */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-amber-100 hover:border-amber-300 transition-colors">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">🌾</span>
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-amber-100 hover:border-amber-300 transition-colors">
+              <div className="text-center mb-4">
+                <div className="w-16 h-16 mx-auto mb-3 bg-amber-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🌾</span>
                 </div>
                 <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-2">
                   مجاني
                 </span>
-                <h3 className="text-xl font-bold text-gray-900">دليل التربة</h3>
+                <h3 className="text-lg font-bold text-gray-900">دليل التربة</h3>
               </div>
-              <p className="text-gray-600 text-center mb-6">
-                تعرف على نوع تربتك ومشاكلها الشائعة وكيف تتعامل معها بشكل صحيح.
+              <p className="text-gray-600 text-center text-sm mb-4">
+                تعرف على نوع تربتك ومشاكلها الشائعة وكيف تتعامل معها.
               </p>
-              <p className="text-sm text-gray-500 text-center mb-6">
-                <strong>متى تستخدمه؟</strong> عندما تريد فهم طبيعة أرضك واحتياجاتها.
+              <p className="text-xs text-gray-500 text-center mb-4">
+                <strong>متى تستخدمه؟</strong> لفهم طبيعة أرضك.
               </p>
               <Link
                 href="/soil-types"
-                className="block w-full text-center py-3 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-medium"
+                className="block w-full text-center py-2.5 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-medium text-sm"
               >
-                استكشف أنواع التربة
+                دليل التربة
               </Link>
             </div>
 
-            {/* Tool 2: Calculator */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-green-100 hover:border-green-300 transition-colors">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">🧮</span>
+            {/* Tool 2: Irrigation Calculator */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-green-100 hover:border-green-300 transition-colors">
+              <div className="text-center mb-4">
+                <div className="w-16 h-16 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🧮</span>
                 </div>
                 <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-2">
                   مجاني
                 </span>
-                <h3 className="text-xl font-bold text-gray-900">حاسبة التربة والري</h3>
+                <h3 className="text-lg font-bold text-gray-900">حاسبة الري</h3>
               </div>
-              <p className="text-gray-600 text-center mb-6">
-                احصل على توصية ري وتسميد عامة بناءً على نوع تربتك ومحصولك.
+              <p className="text-gray-600 text-center text-sm mb-4">
+                احصل على توصية ري عامة بناءً على نوع تربتك ومحصولك.
               </p>
-              <p className="text-sm text-gray-500 text-center mb-6">
-                <strong>متى تستخدمها؟</strong> للتخطيط الأولي والحصول على فكرة عامة.
+              <p className="text-xs text-gray-500 text-center mb-4">
+                <strong>متى تستخدمها؟</strong> لتحديد كمية الري المناسبة.
               </p>
               <Link
                 href="/calculator"
-                className="block w-full text-center py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+                className="block w-full text-center py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
               >
-                استخدم الحاسبة الآن
+                حاسبة الري
               </Link>
             </div>
 
-            {/* Tool 3: Ask Murad */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-purple-100 hover:border-purple-300 transition-colors">
-              <div className="text-center mb-6">
-                <div className="w-20 h-20 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
-                  <span className="text-4xl">👨‍🌾</span>
+            {/* Tool 3: Fertilizer Calculator */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-teal-100 hover:border-teal-300 transition-colors">
+              <div className="text-center mb-4">
+                <div className="w-16 h-16 mx-auto mb-3 bg-teal-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🌿</span>
+                </div>
+                <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-2">
+                  مجاني
+                </span>
+                <h3 className="text-lg font-bold text-gray-900">حاسبة الأسمدة</h3>
+              </div>
+              <p className="text-gray-600 text-center text-sm mb-4">
+                حدد نوع السماد المناسب حسب مرحلة النمو ونوع التربة.
+              </p>
+              <p className="text-xs text-gray-500 text-center mb-4">
+                <strong>متى تستخدمها؟</strong> لاختيار السماد الأنسب لمحصولك.
+              </p>
+              <Link
+                href="/fertilizer-calculator"
+                className="block w-full text-center py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
+              >
+                حاسبة الأسمدة
+              </Link>
+            </div>
+
+            {/* Tool 4: Ask Murad */}
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-100 hover:border-purple-300 transition-colors">
+              <div className="text-center mb-4">
+                <div className="w-16 h-16 mx-auto mb-3 bg-purple-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">👨‍🌾</span>
                 </div>
                 <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full mb-2">
                   استشارة مدفوعة
                 </span>
-                <h3 className="text-xl font-bold text-gray-900">اسأل مراد</h3>
+                <h3 className="text-lg font-bold text-gray-900">اسأل مراد</h3>
               </div>
-              <p className="text-gray-600 text-center mb-6">
+              <p className="text-gray-600 text-center text-sm mb-4">
                 صوّر مشكلتك واحصل على تشخيص وحل مخصص من خبير زراعي.
               </p>
-              <p className="text-sm text-gray-500 text-center mb-6">
-                <strong>متى تستخدمها؟</strong> عند وجود مشكلة معقدة أو أعراض غير معروفة.
+              <p className="text-xs text-gray-500 text-center mb-4">
+                <strong>متى تستخدمها؟</strong> عند وجود مشكلة معقدة.
               </p>
               <Link
                 href="/ask-murad"
-                className="block w-full text-center py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+                className="block w-full text-center py-2.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm"
               >
-                اطلب استشارة الآن ⭐
+                اطلب استشارة ⭐
               </Link>
             </div>
           </div>
