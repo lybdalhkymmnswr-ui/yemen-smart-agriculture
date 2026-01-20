@@ -74,6 +74,9 @@ export default function Header() {
             <Link href="/calculator" className="text-green-600 hover:text-green-700 transition-colors text-sm font-medium">
               الحاسبة
             </Link>
+            <Link href="/ask-murad" className="text-purple-600 hover:text-purple-700 transition-colors text-sm font-medium">
+              اسأل مراد ⭐
+            </Link>
             
             {loading ? (
               <div className="w-20 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
@@ -182,6 +185,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 الحاسبة
+              </Link>
+              <Link
+                href="/ask-murad"
+                className="px-4 py-2 text-purple-600 hover:bg-purple-50 rounded-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                اسأل مراد ⭐
               </Link>
               
               {loading ? (
