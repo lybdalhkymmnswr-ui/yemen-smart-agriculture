@@ -144,6 +144,130 @@ const recommendations: Record<string, {
   },
 };
 
+// النصائح السياقية الذكية لحاسبة الري
+const getContextualTips = (soil: string, crop: string, irrigation: string): { icon: string; tip: string; type: 'warning' | 'info' | 'success' }[] => {
+  const tips: { icon: string; tip: string; type: 'warning' | 'info' | 'success' }[] = [];
+
+  // نصائح حسب التربة + طريقة الري
+  if (soil === 'clay' && irrigation === 'flood') {
+    tips.push({
+      icon: '🚫',
+      tip: 'تحذير خطير: التربة الطينية مع الغمر تسبب اختناق الجذور وتعفنها. حاول التحول للتنقيط أو قلل كمية الماء بشكل كبير.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'clay' && irrigation === 'drip') {
+    tips.push({
+      icon: '⚠️',
+      tip: 'التربة الطينية مع التنقيط: راقب تراكم الأملاح حول النقاطات. اغسل التربة بري غزير مرة كل أسبوعين.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'sandy' && irrigation === 'flood') {
+    tips.push({
+      icon: '💧',
+      tip: 'التربة الرملية مع الغمر: الماء يتسرب بسرعة كبيرة. قسّم الري على 3-4 دفعات قصيرة يومياً بدلاً من مرة واحدة.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'sandy' && irrigation === 'drip') {
+    tips.push({
+      icon: '✅',
+      tip: 'اختيار ممتاز! التنقيط مثالي للتربة الرملية. يحافظ على الماء قرب الجذور ويقلل الهدر.',
+      type: 'success'
+    });
+  }
+
+  if (soil === 'arid' && irrigation === 'flood') {
+    tips.push({
+      icon: '⚠️',
+      tip: 'تحذير: الغمر في التربة الجافة يرفع الأملاح للسطح ويضر بالنباتات. استخدم ماء عذب واغسل التربة بعمق شهرياً.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'arid' && irrigation === 'drip') {
+    tips.push({
+      icon: '👍',
+      tip: 'التنقيط خيار جيد للتربة الجافة. يقلل تراكم الأملاح على السطح ويوفر الماء.',
+      type: 'success'
+    });
+  }
+
+  // نصائح حسب التربة + المحصول
+  if (soil === 'clay' && crop === 'vegetables') {
+    tips.push({
+      icon: '🥬',
+      tip: 'نصيحة للخضروات في التربة الطينية: اختر محاصيل ذات جذور قوية مثل الملفوف والباذنجان. تجنب الجزر والبطاطس.',
+      type: 'info'
+    });
+  }
+
+  if (soil === 'sandy' && crop === 'vegetables') {
+    tips.push({
+      icon: '🥕',
+      tip: 'التربة الرملية ممتازة للخضروات الجذرية مثل الجزر والبطاطس. لكنها تحتاج ري متكرر.',
+      type: 'info'
+    });
+  }
+
+  if (soil === 'dark' && crop === 'qat') {
+    tips.push({
+      icon: '🌱',
+      tip: 'التربة السوداء غنية طبيعياً. القات ينمو جيداً فيها بدون أسمدة كثيرة. لا تفرط في التسميد.',
+      type: 'info'
+    });
+  }
+
+  if (soil === 'dark' && crop === 'vegetables') {
+    tips.push({
+      icon: '🌟',
+      tip: 'تربة مثالية للخضروات! يمكنك زراعة أي نوع تقريباً. استفد من خصوبتها الطبيعية.',
+      type: 'success'
+    });
+  }
+
+  // نصائح حسب طريقة الري + المحصول
+  if (irrigation === 'flood' && crop === 'vegetables') {
+    tips.push({
+      icon: '💡',
+      tip: 'الخضروات مع الغمر: اسقِ في الصباح الباكر أو المساء لتقليل التبخر وحماية الأوراق من الحروق.',
+      type: 'info'
+    });
+  }
+
+  if (irrigation === 'drip' && crop === 'qat') {
+    tips.push({
+      icon: '🎯',
+      tip: 'التنقيط مع القات: يمكنك إضافة السماد مع ماء الري (التسميد بالتنقيط) للحصول على نتائج أفضل.',
+      type: 'info'
+    });
+  }
+
+  // نصائح عامة إضافية
+  if (soil === 'mixed') {
+    tips.push({
+      icon: '👍',
+      tip: 'التربة المختلطة متوازنة وسهلة الإدارة. التزم بالتوصيات الأساسية وراقب استجابة المحصول.',
+      type: 'success'
+    });
+  }
+
+  // إذا لم تكن هناك نصائح محددة، أضف نصيحة عامة
+  if (tips.length === 0) {
+    tips.push({
+      icon: '📋',
+      tip: 'التزم بالتوصيات المذكورة أعلاه، وراقب حالة النبات. إذا لاحظت ذبول أو اصفرار، راجع كمية الري.',
+      type: 'info'
+    });
+  }
+
+  return tips;
+};
+
 export default function CalculatorPage() {
   // Controlled state for form fields
   const [soilType, setSoilType] = useState<string>('');
@@ -153,6 +277,7 @@ export default function CalculatorPage() {
   // Result state
   const [result, setResult] = useState<typeof recommendations[string] | null>(null);
   const [showResult, setShowResult] = useState<boolean>(false);
+  const [contextualTips, setContextualTips] = useState<{ icon: string; tip: string; type: 'warning' | 'info' | 'success' }[]>([]);
   
   // Error state
   const [showError, setShowError] = useState<boolean>(false);
@@ -165,6 +290,7 @@ export default function CalculatorPage() {
     setSoilType(e.target.value);
     setShowResult(false);
     setShowError(false);
+    setContextualTips([]);
   }, []);
 
   // Handle crop type change
@@ -172,6 +298,7 @@ export default function CalculatorPage() {
     setCropType(e.target.value);
     setShowResult(false);
     setShowError(false);
+    setContextualTips([]);
   }, []);
 
   // Handle irrigation type change
@@ -179,6 +306,7 @@ export default function CalculatorPage() {
     setIrrigationType(e.target.value);
     setShowResult(false);
     setShowError(false);
+    setContextualTips([]);
   }, []);
 
   // Handle calculate button click
@@ -187,6 +315,7 @@ export default function CalculatorPage() {
     if (!soilType || !cropType || !irrigationType) {
       setShowError(true);
       setShowResult(false);
+      setContextualTips([]);
       return;
     }
 
@@ -198,6 +327,10 @@ export default function CalculatorPage() {
       setResult(recommendation);
       setShowResult(true);
       setShowError(false);
+      
+      // الحصول على النصائح السياقية
+      const tips = getContextualTips(soilType, cropType, irrigationType);
+      setContextualTips(tips);
     }
   }, [soilType, cropType, irrigationType]);
 
@@ -212,6 +345,22 @@ export default function CalculatorPage() {
         return 'bg-red-100 text-red-800 border-red-300';
       default:
         return 'bg-gray-100 text-gray-800 border-gray-300';
+    }
+  };
+
+  const getTipBgColor = (type: 'warning' | 'info' | 'success') => {
+    switch (type) {
+      case 'warning': return 'bg-red-50 border-red-200';
+      case 'info': return 'bg-blue-50 border-blue-200';
+      case 'success': return 'bg-green-50 border-green-200';
+    }
+  };
+
+  const getTipTextColor = (type: 'warning' | 'info' | 'success') => {
+    switch (type) {
+      case 'warning': return 'text-red-700';
+      case 'info': return 'text-blue-700';
+      case 'success': return 'text-green-700';
     }
   };
 
@@ -358,6 +507,30 @@ export default function CalculatorPage() {
                   </p>
                 </div>
               </div>
+
+              {/* Contextual Tips Section */}
+              {contextualTips.length > 0 && (
+                <div className="bg-white rounded-xl p-6 border-2 border-purple-200">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                    <span className="text-2xl">💡</span>
+                    تنبيهات مهمة حسب أرضك
+                  </h3>
+
+                  <div className="space-y-3">
+                    {contextualTips.map((tip, index) => (
+                      <div 
+                        key={index} 
+                        className={`rounded-lg p-4 border ${getTipBgColor(tip.type)}`}
+                      >
+                        <p className={`${getTipTextColor(tip.type)} flex items-start gap-2`}>
+                          <span className="text-xl flex-shrink-0">{tip.icon}</span>
+                          <span>{tip.tip}</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Upgrade CTA */}
               <div className="bg-gradient-to-br from-amber-50 to-yellow-50 rounded-xl p-6 border border-amber-200">

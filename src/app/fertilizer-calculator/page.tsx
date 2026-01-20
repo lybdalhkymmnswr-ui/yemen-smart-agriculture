@@ -105,6 +105,122 @@ const getRecommendation = (soil: string, crop: string, stage: string, irrigation
   };
 };
 
+// النصائح السياقية الذكية
+const getContextualTips = (soil: string, stage: string, irrigation: string): { icon: string; tip: string; type: 'warning' | 'info' | 'success' }[] => {
+  const tips: { icon: string; tip: string; type: 'warning' | 'info' | 'success' }[] = [];
+
+  // نصائح حسب التربة + طريقة الري
+  if (soil === 'clay' && irrigation === 'drip') {
+    tips.push({
+      icon: '⚠️',
+      tip: 'التربة الطينية مع التنقيط: احذر من تراكم الأملاح حول النقاطات. اغسل التربة بري غزير كل أسبوعين.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'clay' && irrigation === 'flood') {
+    tips.push({
+      icon: '🚫',
+      tip: 'تحذير مهم: التربة الطينية مع الغمر قد تسبب اختناق الجذور. قلل كمية الماء وتأكد من الصرف الجيد.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'sandy' && irrigation === 'flood') {
+    tips.push({
+      icon: '💧',
+      tip: 'التربة الرملية مع الغمر: الماء يتسرب بسرعة ويغسل السماد. قسّم الري على دفعات قصيرة متكررة.',
+      type: 'warning'
+    });
+  }
+
+  if (soil === 'sandy' && irrigation === 'drip') {
+    tips.push({
+      icon: '✅',
+      tip: 'اختيار ممتاز! التنقيط مثالي للتربة الرملية. يحافظ على السماد قرب الجذور.',
+      type: 'success'
+    });
+  }
+
+  // نصائح حسب التربة + مرحلة النمو
+  if (soil === 'sandy' && stage === 'growth') {
+    tips.push({
+      icon: '📌',
+      tip: 'نصيحة مهمة: في مرحلة النمو الخضري، التربة الرملية تحتاج زيادة عدد مرات التسميد وليس الكمية. قسّم الجرعة على 3-4 دفعات.',
+      type: 'info'
+    });
+  }
+
+  if (soil === 'dark' && stage === 'growth') {
+    tips.push({
+      icon: '🌱',
+      tip: 'التربة السوداء غنية بالنيتروجين طبيعياً. في مرحلة النمو الخضري، قلل السماد النيتروجيني لتجنب النمو المفرط.',
+      type: 'info'
+    });
+  }
+
+  if (soil === 'clay' && stage === 'start') {
+    tips.push({
+      icon: '🌾',
+      tip: 'في مرحلة البداية: التربة الطينية تحتفظ بالسماد جيداً. ابدأ بجرعة خفيفة وراقب استجابة النبات.',
+      type: 'info'
+    });
+  }
+
+  if (soil === 'arid' && stage === 'production') {
+    tips.push({
+      icon: '🔆',
+      tip: 'في مرحلة الإنتاج: التربة الجافة تحتاج عناصر صغرى إضافية (حديد، زنك، منغنيز) لتحسين جودة الثمار.',
+      type: 'info'
+    });
+  }
+
+  // نصائح حسب طريقة الري + مرحلة النمو
+  if (irrigation === 'rain' && stage === 'growth') {
+    tips.push({
+      icon: '🌧️',
+      tip: 'الري المطري في مرحلة النمو: سمّد قبل المطر المتوقع بيوم أو يومين لضمان وصول السماد للجذور.',
+      type: 'info'
+    });
+  }
+
+  if (irrigation === 'flood' && stage === 'production') {
+    tips.push({
+      icon: '💡',
+      tip: 'في مرحلة الإنتاج مع الغمر: قلل كمية الماء لتجنب تخفيف السماد. الري المتوسط أفضل من الغزير.',
+      type: 'info'
+    });
+  }
+
+  if (irrigation === 'drip' && stage === 'production') {
+    tips.push({
+      icon: '🎯',
+      tip: 'التنقيط في مرحلة الإنتاج: يمكنك إضافة السماد مع ماء الري (التسميد بالتنقيط) للحصول على أفضل النتائج.',
+      type: 'success'
+    });
+  }
+
+  // نصائح عامة إضافية
+  if (soil === 'mixed') {
+    tips.push({
+      icon: '👍',
+      tip: 'التربة المختلطة متوازنة وسهلة الإدارة. التزم بالتوصيات الأساسية وراقب استجابة المحصول.',
+      type: 'success'
+    });
+  }
+
+  // إذا لم تكن هناك نصائح محددة، أضف نصيحة عامة
+  if (tips.length === 0) {
+    tips.push({
+      icon: '📋',
+      tip: 'التزم بالتوصيات المذكورة أعلاه، وراقب حالة النبات. إذا لاحظت اصفرار أو ضعف، استشر خبيراً.',
+      type: 'info'
+    });
+  }
+
+  return tips;
+};
+
 export default function FertilizerCalculatorPage() {
   const [soilType, setSoilType] = useState('');
   const [cropType, setCropType] = useState('');
@@ -116,6 +232,7 @@ export default function FertilizerCalculatorPage() {
     frequency: string;
     warning: string;
   } | null>(null);
+  const [contextualTips, setContextualTips] = useState<{ icon: string; tip: string; type: 'warning' | 'info' | 'success' }[]>([]);
   const [error, setError] = useState('');
 
   const handleCalculate = useCallback(() => {
@@ -123,15 +240,36 @@ export default function FertilizerCalculatorPage() {
     if (!soilType || !cropType || !growthStage || !irrigationMethod) {
       setError('يرجى اختيار جميع الحقول للحصول على التوصية');
       setResult(null);
+      setContextualTips([]);
       return;
     }
 
     setError('');
     const recommendation = getRecommendation(soilType, cropType, growthStage, irrigationMethod);
     setResult(recommendation);
+    
+    // الحصول على النصائح السياقية
+    const tips = getContextualTips(soilType, growthStage, irrigationMethod);
+    setContextualTips(tips);
   }, [soilType, cropType, growthStage, irrigationMethod]);
 
   const isFormComplete = soilType && cropType && growthStage && irrigationMethod;
+
+  const getTipBgColor = (type: 'warning' | 'info' | 'success') => {
+    switch (type) {
+      case 'warning': return 'bg-red-50 border-red-200';
+      case 'info': return 'bg-blue-50 border-blue-200';
+      case 'success': return 'bg-green-50 border-green-200';
+    }
+  };
+
+  const getTipTextColor = (type: 'warning' | 'info' | 'success') => {
+    switch (type) {
+      case 'warning': return 'text-red-700';
+      case 'info': return 'text-blue-700';
+      case 'success': return 'text-green-700';
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white" dir="rtl">
@@ -298,6 +436,30 @@ export default function FertilizerCalculatorPage() {
                   لا تعتبر بديلاً عن تحليل التربة والاستشارة المتخصصة.
                 </p>
               </div>
+            </div>
+          </div>
+        )}
+
+        {/* Contextual Tips Section */}
+        {contextualTips.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8 border-2 border-purple-200">
+            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <span className="text-2xl">💡</span>
+              تنبيهات مهمة حسب أرضك
+            </h2>
+
+            <div className="space-y-3">
+              {contextualTips.map((tip, index) => (
+                <div 
+                  key={index} 
+                  className={`rounded-lg p-4 border ${getTipBgColor(tip.type)}`}
+                >
+                  <p className={`${getTipTextColor(tip.type)} flex items-start gap-2`}>
+                    <span className="text-xl flex-shrink-0">{tip.icon}</span>
+                    <span>{tip.tip}</span>
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         )}
