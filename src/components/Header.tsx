@@ -86,6 +86,9 @@ export default function Header() {
             <Link href="/farm-calculator" className="text-amber-600 hover:text-amber-700 transition-colors text-sm font-medium">
               🧮 حِسبة المزرعة
             </Link>
+            <Link href="/farmer-notebook" className="text-amber-700 hover:text-amber-800 transition-colors text-sm font-medium">
+              📒 دفتر المزارع
+            </Link>
             
             {loading ? (
               <div className="w-20 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
@@ -222,6 +225,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 🧮 حِسبة المزرعة
+              </Link>
+              <Link
+                href="/farmer-notebook"
+                className="px-4 py-2 text-amber-700 hover:bg-amber-50 rounded-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                📒 دفتر المزارع
               </Link>
               
               {loading ? (
