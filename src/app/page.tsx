@@ -241,6 +241,92 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Library Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-green-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
+              جديد
+            </span>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              المكتبة الزراعية
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              مرجعك الشامل للزراعة في اليمن. مقالات عملية، جداول مبسطة، وحلول للمشاكل الشائعة.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Qat Guide */}
+            <Link
+              href="/library/qat-guide"
+              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-green-100 hover:border-green-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🌳</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">دليل زراعة القات</h3>
+                  <p className="text-sm text-gray-500">4 مقالات</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm">
+                برامج تسميد وري، علامات نقص العناصر، وأخطاء شائعة.
+              </p>
+            </Link>
+
+            {/* Soil & Fertilization */}
+            <Link
+              href="/library/soil-fertilization"
+              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-amber-100 hover:border-amber-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">🌍</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">صحة التربة والتسميد</h3>
+                  <p className="text-sm text-gray-500">4 مقالات</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm">
+                كيف تعرف تربتك؟ الفرق بين الأسمدة، وأخطاء التسميد.
+              </p>
+            </Link>
+
+            {/* Irrigation */}
+            <Link
+              href="/library/irrigation-management"
+              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-blue-100 hover:border-blue-300"
+            >
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span className="text-3xl">💧</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">الري وإدارة المياه</h3>
+                  <p className="text-sm text-gray-500">4 مقالات</p>
+                </div>
+              </div>
+              <p className="text-gray-600 text-sm">
+                متى تسقي؟ علامات الإفراط، وتوفير المياه.
+              </p>
+            </Link>
+          </div>
+
+          <div className="text-center mt-8">
+            <Link
+              href="/library"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-bold text-lg"
+            >
+              <span>📚</span>
+              تصفح المكتبة الكاملة
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-green-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

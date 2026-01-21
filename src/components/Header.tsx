@@ -68,6 +68,9 @@ export default function Header() {
             <Link href="/experts" className="text-gray-600 hover:text-green-600 transition-colors text-sm">
               الخبراء
             </Link>
+            <Link href="/library" className="text-green-600 hover:text-green-700 transition-colors text-sm font-medium">
+              المكتبة الزراعية
+            </Link>
             <Link href="/soil-types" className="text-amber-600 hover:text-amber-700 transition-colors text-sm font-medium">
               دليل التربة
             </Link>
@@ -171,6 +174,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 الخبراء
+              </Link>
+              <Link
+                href="/library"
+                className="px-4 py-2 text-green-600 hover:bg-green-50 rounded-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                المكتبة الزراعية
               </Link>
               <Link
                 href="/soil-types"
