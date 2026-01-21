@@ -80,6 +80,9 @@ export default function Header() {
             <Link href="/ask-murad" className="text-purple-600 hover:text-purple-700 transition-colors text-sm font-medium">
               اسأل مراد ⭐
             </Link>
+            <Link href="/mobeed-alyawm" className="text-orange-600 hover:text-orange-700 transition-colors text-sm font-medium">
+              🧪 مبيد اليوم
+            </Link>
             
             {loading ? (
               <div className="w-20 h-8 bg-gray-200 animate-pulse rounded-lg"></div>
@@ -202,6 +205,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 اسأل مراد ⭐
+              </Link>
+              <Link
+                href="/mobeed-alyawm"
+                className="px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                🧪 مبيد اليوم
               </Link>
               
               {loading ? (
