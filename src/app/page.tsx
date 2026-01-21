@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
-import { products, articles, experts } from '@/data/seed';
+import { articles, experts } from '@/data/seed';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,8 +30,8 @@ export default function HomePage() {
             <span className="text-green-600"> اليمنية</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            منصة متكاملة تجمع المزارعين والموردين والخبراء الزراعيين في مكان واحد.
-            ابحث عن المنتجات، اقرأ المقالات، واحصل على استشارات من الخبراء.
+            مرجع زراعي متكامل يقدم المعرفة العملية للمزارع اليمني.
+            حاسبات ذكية، مقالات تعليمية، ونصائح من خبرة المزارعين.
           </p>
           
           {/* Search Box */}
@@ -61,16 +61,16 @@ export default function HomePage() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/register"
+              href="/library"
               className="px-8 py-3 bg-green-600 text-white text-lg font-medium rounded-lg hover:bg-green-700 transition-colors"
             >
-              ابدأ الآن مجاناً
+              تصفح المكتبة الزراعية
             </Link>
             <Link
-              href="/products"
+              href="/farm-calculator"
               className="px-8 py-3 border-2 border-green-600 text-green-600 text-lg font-medium rounded-lg hover:bg-green-50 transition-colors"
             >
-              تصفح المنتجات
+              حِسبة المزرعة
             </Link>
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function HomePage() {
                   <span className="text-3xl">👨‍🌾</span>
                 </div>
                 <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full mb-2">
-                  استشارة مدفوعة
+                  استشارة متخصصة
                 </span>
                 <h3 className="text-lg font-bold text-gray-900">اسأل مراد</h3>
               </div>
@@ -234,7 +234,7 @@ export default function HomePage() {
                 href="/ask-murad"
                 className="block w-full text-center py-2.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm"
               >
-                اطلب استشارة ⭐
+                استشر الخبير
               </Link>
             </div>
           </div>
@@ -405,8 +405,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             <div>
-              <p className="text-4xl font-bold">{products.length}+</p>
-              <p className="text-green-100 mt-1">منتج زراعي</p>
+              <p className="text-4xl font-bold">50+</p>
+              <p className="text-green-100 mt-1">دليل ومقال</p>
             </div>
             <div>
               <p className="text-4xl font-bold">{articles.length}+</p>
@@ -424,40 +424,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Latest Products */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">أحدث المنتجات</h2>
-            <Link href="/products" className="text-green-600 hover:underline">
-              عرض الكل
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.slice(0, 3).map((product) => (
-              <Link
-                key={product.id}
-                href={`/products/${product.slug}`}
-                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
-              >
-                <div className="h-40 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                  <span className="text-5xl">{product.imageEmoji}</span>
-                </div>
-                <div className="p-4">
-                  <span className="inline-block px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full mb-2">
-                    {product.category}
-                  </span>
-                  <h3 className="font-semibold text-gray-900">{product.title}</h3>
-                  <p className="text-green-600 font-bold mt-2">
-                    {product.priceRetail.toLocaleString()} ر.ي
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Latest Products - مخفي مؤقتاً */}
+      {/* سيتم إعادة تفعيله لاحقاً */}
 
       {/* Latest Articles */}
       <section className="py-16 bg-white">

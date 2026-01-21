@@ -14,7 +14,11 @@ interface Post {
   facebookUrl: string;
   featured?: boolean;
   image?: string;
+  isCommercial?: boolean;
 }
+
+// إعداد إخفاء المحتوى التجاري
+const HIDE_COMMERCIAL_CONTENT = true;
 
 // بيانات المنشورات - يمكن تحديثها يدوياً
 const posts: Post[] = [
@@ -56,6 +60,7 @@ const posts: Post[] = [
     date: '2026-01-21',
     featured: true,
     image: '/images/divizole-post.jpg',
+    isCommercial: true,
     content: `كثير منكم طلب نبدأ بمبيد ديفيزول،
 وقبل أي شيء خلّونا نوضّح نقطة مهمة من البداية:
 
@@ -254,13 +259,18 @@ const posts: Post[] = [
 export default function MobeedAlyawmPage() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 
-  // جمع كل التاجات
-  const allTags = Array.from(new Set(posts.flatMap(post => post.tags)));
-
-  // فلترة المنشورات حسب التاج المختار
-  const filteredPosts = selectedTag 
-    ? posts.filter(post => post.tags.includes(selectedTag))
+  // فلترة المنشورات: إخفاء المحتوى التجاري أولاً
+  const visiblePosts = HIDE_COMMERCIAL_CONTENT 
+    ? posts.filter(post => !post.isCommercial)
     : posts;
+  
+  // جمع التاجات من المنشورات المرئية فقط
+  const allTags = Array.from(new Set(visiblePosts.flatMap(post => post.tags)));
+
+  // فلترة حسب التاج المختار
+  const filteredPosts = selectedTag 
+    ? visiblePosts.filter(post => post.tags.includes(selectedTag))
+    : visiblePosts;
 
   return (
     <div className="min-h-screen bg-gray-50" dir="rtl">
