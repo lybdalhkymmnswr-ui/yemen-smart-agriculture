@@ -327,6 +327,79 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Mobeed Alyawm Section */}
+      <section className="py-16 bg-gradient-to-b from-green-50 to-orange-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-orange-200">
+            <div className="md:flex">
+              {/* Content Side */}
+              <div className="p-8 md:p-12 md:w-2/3">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="inline-block px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-bold">
+                    🧪 توعية يومية
+                  </span>
+                  <span className="inline-block px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-medium animate-pulse">
+                    جديد
+                  </span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  مبيد اليوم
+                </h2>
+                <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                  صفحة توعوية يومية توضّح حقيقة المبيدات، المواد الفعالة، الأخطاء الشائعة، والبدائل الآمنة بلغة المزارع.
+                </p>
+                <ul className="space-y-3 mb-8">
+                  <li className="flex items-center gap-3 text-gray-700">
+                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                    <span>كيف تفرق بين المبيد الأصلي والمغشوش؟</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-700">
+                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                    <span>متى الوقت الصحيح للرش؟</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-700">
+                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                    <span>أخطاء شائعة في خلط المبيدات</span>
+                  </li>
+                  <li className="flex items-center gap-3 text-gray-700">
+                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                    <span>بدائل طبيعية آمنة</span>
+                  </li>
+                </ul>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/mobeed-alyawm"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-bold text-lg shadow-lg hover:shadow-xl"
+                  >
+                    <span>🧪</span>
+                    ادخل مبيد اليوم
+                  </Link>
+                  <a
+                    href="https://www.facebook.com/profile.php?id=61586143498963"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-4 border-2 border-blue-500 text-blue-600 rounded-xl hover:bg-blue-50 transition-colors font-medium"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                    </svg>
+                    تابعنا على فيسبوك
+                  </a>
+                </div>
+              </div>
+              {/* Visual Side */}
+              <div className="md:w-1/3 bg-gradient-to-br from-orange-400 to-orange-600 p-8 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <div className="text-8xl mb-4">🧪</div>
+                  <p className="text-2xl font-bold mb-2">معلومة كل يوم</p>
+                  <p className="text-orange-100">لحماية محصولك وصحتك</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section className="py-16 bg-green-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
