@@ -1,10 +1,55 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 
+// تعريف نوع المنشور
+interface Post {
+  id: number;
+  title: string;
+  date: string;
+  content: string;
+  tags: string[];
+  facebookUrl: string;
+  featured?: boolean;
+  image?: string;
+}
+
 // بيانات المنشورات - يمكن تحديثها يدوياً
-const posts = [
+const posts: Post[] = [
+  {
+    id: 0,
+    title: 'مبيد اليوم: لماذا خسر كثير من المزارعين رغم الرش؟',
+    date: '2026-01-21',
+    featured: true,
+    image: '/images/mobeed-alyawm-intro.jpg',
+    content: `يا إخواني المزارعين،
+كثرت المنتجات وامتلأ السوق بالمبيدات المغشوشة، وصار الواحد يخسر وهو حاسب إنه يعالج زرعه.
+
+كثير منا رش مبيد، تعب وصرف، وفي الأخير ما شاف نتيجة.
+والسبب غالبًا واحد من ثلاثة:
+• معلومة غلط
+• استخدام المبيد في غير وقته
+• الجهل بالمادة الفعالة الموجودة داخل العلبة
+
+ومن أجل نوقف الخسارة ونتكاتف مع بعض، جاءت فكرة مبيد اليوم.
+
+هذه الصفحة ليست للبيع ولا للترويج،
+هدفها الوعي فقط.
+
+كل يوم سنتكلم عن مبيد واحد:
+• ما هي مادته الفعالة
+• متى ينفع ومتى يضر
+• أخطاء الاستخدام الشائعة
+• هل له بديل؟ ومتى نلجأ له
+
+رأيكم يهمنا 👇
+هل هذا النوع من المحتوى يفيدكم؟
+وما هو أول مبيد تحبوا نبدأ به؟`,
+    tags: ['توعية', 'مبيدات', 'أخطاء شائعة', 'مادة فعالة', 'وعي زراعي'],
+    facebookUrl: 'https://www.facebook.com/share/p/1MiVieLSDp/?mibextid=wwXIfr'
+  },
   {
     id: 1,
     title: 'الفرق بين المبيد الأصلي والمغشوش',
@@ -175,13 +220,39 @@ export default function MobeedAlyawmPage() {
           {filteredPosts.map(post => (
             <article 
               key={post.id}
-              className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+              className={`bg-white rounded-xl shadow-sm border overflow-hidden hover:shadow-md transition-shadow ${
+                post.featured ? 'border-green-300 ring-2 ring-green-100' : 'border-gray-100'
+              }`}
             >
+              {/* صورة المنشور المميز */}
+              {post.image && (
+                <div className="relative h-64 w-full">
+                  <Image 
+                    src={post.image} 
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    priority={post.featured}
+                  />
+                  {post.featured && (
+                    <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium z-10">
+                      🌟 المنشور الرئيسي
+                    </div>
+                  )}
+                </div>
+              )}
               <div className="p-6">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h2 className="text-xl font-bold text-gray-900 mb-2">
+                    {post.featured && !post.image && (
+                      <span className="inline-block bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium mb-2">
+                        🌟 المنشور الرئيسي
+                      </span>
+                    )}
+                    <h2 className={`font-bold text-gray-900 mb-2 ${
+                      post.featured ? 'text-2xl' : 'text-xl'
+                    }`}>
                       {post.title}
                     </h2>
                     <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -195,7 +266,7 @@ export default function MobeedAlyawmPage() {
                       </time>
                     </div>
                   </div>
-                  <div className="text-3xl">🧪</div>
+                  {!post.image && <div className="text-3xl">🧪</div>}
                 </div>
 
                 {/* Content */}
@@ -221,12 +292,12 @@ export default function MobeedAlyawmPage() {
                     href={post.facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium"
+                    className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 font-medium transition-colors"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                     </svg>
-                    شاهد المنشور الأصلي على فيسبوك
+                    🔗 شاهد المنشور الأصلي وشارك برأيك على فيسبوك
                   </a>
                 </div>
               </div>
