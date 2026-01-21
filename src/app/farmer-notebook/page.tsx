@@ -2,67 +2,77 @@
 
 import Link from 'next/link';
 
-// بيانات الخواطر - 10 خواطر قصيرة
+// بيانات الخواطر - 10 خواطر قصيرة مع أسئلة تحفيزية
 const thoughts = [
   {
     id: 1,
     title: 'الماء قبل السماد',
     content: 'كثير من المزارعين يضعون السماد على تربة جافة ويتعجبون ليش ما نفع. السماد يحتاج رطوبة حتى يذوب ويوصل للجذور. اسقِ أولاً، ثم سمّد.',
     category: 'نصيحة',
+    question: 'هل كنت تسمّد على تربة جافة من قبل؟',
   },
   {
     id: 2,
     title: 'لا تقارن مزرعتك بمزرعة جارك',
     content: 'كل أرض لها طبيعتها، وكل موسم له ظروفه. اللي نجح مع جارك قد لا ينجح معك. راقب أرضك أنت، وتعلم منها.',
     category: 'وعي',
+    question: 'هل سبق وقلّدت جارك وما نجح معك؟',
   },
   {
     id: 3,
     title: 'المبيد ليس حل لكل مشكلة',
     content: 'أحياناً النبات يصفر من العطش أو نقص عنصر، وليس من آفة. قبل ما ترش، اسأل نفسك: هل المشكلة فعلاً حشرة أو مرض؟',
     category: 'خطأ شائع',
+    question: 'هل رشيت مبيد وما شفت نتيجة؟',
   },
   {
     id: 4,
     title: 'سجّل كل شيء',
     content: 'التاريخ، الكمية، النتيجة. بعد سنة ستشكر نفسك. الذاكرة تخون، لكن الدفتر لا يكذب.',
     category: 'نصيحة',
+    question: 'هل عندك دفتر تسجّل فيه؟',
   },
   {
     id: 5,
     title: 'الصبر نصف الزراعة',
     content: 'لا تستعجل النتيجة. النبات يحتاج وقته. اللي يستعجل يخسر، واللي يصبر يحصد.',
     category: 'وعي',
+    question: 'هل مرّ عليك موقف استعجلت فيه وخسرت؟',
   },
   {
     id: 6,
     title: 'رخيص السماد غالي الخسارة',
     content: 'السماد المغشوش يوفر لك ألف ريال ويخسرك مئة ألف في المحصول. الجودة استثمار، والغش خسارة مؤجلة.',
     category: 'خطأ شائع',
+    question: 'هل سبق واشتريت سماد رخيص وندمت؟',
   },
   {
     id: 7,
     title: 'اسأل قبل ما تجرب',
     content: 'التجربة العشوائية مكلفة. اسأل من جرّب قبلك، واقرأ، وتعلم من أخطاء غيرك بدل ما تدفع ثمنها من جيبك.',
     category: 'نصيحة',
+    question: 'هل تسأل قبل ما تجرب شيء جديد؟',
   },
   {
     id: 8,
     title: 'التربة أساس كل شيء',
     content: 'لو التربة مريضة، كل شيء فوقها سيتعب. اهتم بتربتك قبل ما تهتم بالنبات. التربة الصحية = نبات قوي.',
     category: 'وعي',
+    question: 'متى آخر مرة فحصت تربتك؟',
   },
   {
     id: 9,
     title: 'الري الزائد قاتل صامت',
     content: 'كثير يظنون أن الماء الكثير أفضل. الحقيقة: الري الزائد يخنق الجذور ويسبب أمراض أكثر من الجفاف.',
     category: 'خطأ شائع',
+    question: 'هل سبق وخسرت محصول بسبب الري الزائد؟',
   },
   {
     id: 10,
     title: 'المزارع الناجح يتعلم كل يوم',
     content: 'لا أحد يعرف كل شيء. أفضل المزارعين هم الذين يسألون ويتعلمون ويجربون بوعي. الجهل ليس عيباً، لكن البقاء عليه هو العيب.',
     category: 'وعي',
+    question: 'هل تعلمت شيء جديد هذا الأسبوع؟',
   },
 ];
 
@@ -81,6 +91,12 @@ const categoryIcons: { [key: string]: string } = {
 };
 
 export default function FarmerNotebookPage() {
+  // حساب العدّادات
+  const totalThoughts = thoughts.length;
+  const tipsCount = thoughts.filter(t => t.category === 'نصيحة').length;
+  const awarenessCount = thoughts.filter(t => t.category === 'وعي').length;
+  const mistakesCount = thoughts.filter(t => t.category === 'خطأ شائع').length;
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white" dir="rtl">
       {/* Header */}
@@ -99,19 +115,23 @@ export default function FarmerNotebookPage() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
-        {/* Stats */}
-        <div className="flex justify-center gap-6 mb-8 text-sm">
-          <div className="bg-white rounded-lg px-4 py-2 shadow-sm border border-amber-200">
-            <span className="text-amber-600 font-bold">{thoughts.length}</span>
-            <span className="text-gray-600 mr-1">خاطرة</span>
+        {/* Stats - العدّاد */}
+        <div className="flex justify-center gap-4 md:gap-6 mb-8 text-sm flex-wrap">
+          <div className="bg-white rounded-lg px-4 py-3 shadow-sm border border-amber-200">
+            <div className="text-2xl font-bold text-amber-600">{totalThoughts}</div>
+            <div className="text-gray-600 text-xs">خاطرة</div>
           </div>
-          <div className="bg-white rounded-lg px-4 py-2 shadow-sm border border-amber-200">
-            <span className="text-green-600 font-bold">{thoughts.filter(t => t.category === 'نصيحة').length}</span>
-            <span className="text-gray-600 mr-1">نصيحة</span>
+          <div className="bg-white rounded-lg px-4 py-3 shadow-sm border border-green-200">
+            <div className="text-2xl font-bold text-green-600">{tipsCount}</div>
+            <div className="text-gray-600 text-xs">💡 نصيحة</div>
           </div>
-          <div className="bg-white rounded-lg px-4 py-2 shadow-sm border border-amber-200">
-            <span className="text-red-600 font-bold">{thoughts.filter(t => t.category === 'خطأ شائع').length}</span>
-            <span className="text-gray-600 mr-1">خطأ شائع</span>
+          <div className="bg-white rounded-lg px-4 py-3 shadow-sm border border-blue-200">
+            <div className="text-2xl font-bold text-blue-600">{awarenessCount}</div>
+            <div className="text-gray-600 text-xs">🌱 وعي</div>
+          </div>
+          <div className="bg-white rounded-lg px-4 py-3 shadow-sm border border-red-200">
+            <div className="text-2xl font-bold text-red-600">{mistakesCount}</div>
+            <div className="text-gray-600 text-xs">⚠️ خطأ شائع</div>
           </div>
         </div>
 
@@ -120,7 +140,7 @@ export default function FarmerNotebookPage() {
           {thoughts.map((thought) => (
             <article
               key={thought.id}
-              className="bg-white rounded-xl shadow-sm border border-amber-100 p-5 hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl shadow-sm border border-amber-100 p-5 hover:shadow-md transition-shadow flex flex-col"
             >
               {/* Category Badge */}
               <div className="flex items-center justify-between mb-3">
@@ -136,21 +156,24 @@ export default function FarmerNotebookPage() {
               </h2>
 
               {/* Content */}
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-grow">
                 {thought.content}
               </p>
+
+              {/* سؤال للمزارع */}
+              <div className="bg-amber-50 rounded-lg p-3 border border-amber-200 mt-auto">
+                <p className="text-amber-800 text-xs font-bold mb-1">سؤال للمزارع:</p>
+                <p className="text-amber-700 text-sm">{thought.question}</p>
+              </div>
             </article>
           ))}
         </div>
 
-        {/* Footer Note */}
+        {/* السطر الختامي */}
         <div className="mt-12 text-center">
-          <div className="bg-amber-50 rounded-xl p-6 max-w-xl mx-auto border border-amber-200">
-            <p className="text-amber-800 text-sm mb-2">
-              📝 هذه النسخة الأولية من دفتر المزارع
-            </p>
-            <p className="text-amber-600 text-xs">
-              نقيّم التفاعل قبل إضافة المزيد من الخواطر
+          <div className="bg-gradient-to-r from-amber-100 to-amber-50 rounded-xl p-8 max-w-2xl mx-auto border border-amber-300">
+            <p className="text-amber-900 text-lg font-bold">
+              &ldquo;هذا الدفتر ليس للقراءة فقط… بل لإعادة التفكير.&rdquo;
             </p>
           </div>
         </div>
