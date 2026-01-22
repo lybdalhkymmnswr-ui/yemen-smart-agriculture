@@ -250,6 +250,43 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
+
+          {/* Farm Alert Card - كرت إنذار المزارع */}
+          <div className="mt-8">
+            <Link href="/farm-alert" className="block">
+              <div className="bg-gradient-to-l from-amber-50 to-orange-50 rounded-2xl shadow-lg p-6 border-2 border-amber-300 hover:border-amber-400 hover:shadow-xl transition-all cursor-pointer">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center border-2 border-amber-300">
+                      <span className="text-4xl">⚠️</span>
+                    </div>
+                  </div>
+                  <div className="flex-1 text-center md:text-right">
+                    <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+                      <span className="inline-block px-3 py-1 bg-amber-200 text-amber-800 text-sm font-bold rounded-full font-cairo">
+                        تنبيه هام
+                      </span>
+                      <span className="inline-block px-3 py-1 bg-growth/10 text-growth text-sm font-medium rounded-full font-cairo">
+                        مجاني
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-bold text-soil mb-2 font-cairo">إنذار الطقس للمزارع</h3>
+                    <p className="text-soil/70 font-noto mb-2">
+                      احمِ محصولك من الصقيع! تحقق من درجة الحرارة المتوقعة لليلة القادمة في منطقتك.
+                    </p>
+                    <p className="text-xs text-soil/60 font-noto">
+                      <strong>متى تستخدمه؟</strong> قبل كل ليلة باردة لحماية القات والمحاصيل الحساسة.
+                    </p>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <div className="px-6 py-3 bg-amber-500 text-white rounded-lg font-bold font-cairo hover:bg-amber-600 transition-colors">
+                      تحقق الآن
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
 
