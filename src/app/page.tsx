@@ -2,6 +2,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
@@ -19,17 +20,27 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white" dir="rtl">
+    <div className="min-h-screen bg-beige" dir="rtl">
       <Header />
 
-      {/* Hero Section */}
-      <section className="py-20 px-4">
+      {/* Hero Section - خلفية بنمط المدرجات */}
+      <section className="py-20 px-4 bg-terraces">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          {/* الشعار الكبير */}
+          <div className="flex justify-center mb-6">
+            <Image 
+              src="/logo-knowledge-tree.png" 
+              alt="شجرة المعرفة الزراعية" 
+              width={120} 
+              height={120}
+              className="w-28 h-28 md:w-32 md:h-32"
+            />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-soil mb-6 font-cairo">
             منصة الزراعة الذكية
-            <span className="text-green-600"> اليمنية</span>
+            <span className="text-growth"> اليمنية</span>
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-soil/80 mb-8 font-noto leading-relaxed">
             مرجع زراعي متكامل يقدم المعرفة العملية للمزارع اليمني.
             حاسبات ذكية، مقالات تعليمية، ونصائح من خبرة المزارعين.
           </p>
@@ -41,19 +52,19 @@ export default function HomePage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="ابحث عن منتج أو مقال أو خبير..."
-                className="w-full px-6 py-4 pr-12 text-lg border-2 border-gray-200 rounded-xl focus:outline-none focus:border-green-500 shadow-sm"
+                placeholder="ابحث عن مقال أو دليل زراعي..."
+                className="w-full px-6 py-4 pr-12 text-lg border-2 border-soil/20 rounded-xl focus:outline-none focus:border-growth shadow-sm bg-white font-noto"
               />
               <button
                 type="submit"
-                className="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-green-600"
+                className="absolute inset-y-0 right-0 flex items-center pr-4 text-soil/60 hover:text-growth"
               >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
             </div>
-            <p className="text-sm text-gray-500 mt-2">
+            <p className="text-sm text-soil/60 mt-2 font-noto">
               جرب البحث عن: أبامكتين، تسميد، مكافحة الآفات
             </p>
           </form>
@@ -62,13 +73,13 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/library"
-              className="px-8 py-3 bg-green-600 text-white text-lg font-medium rounded-lg hover:bg-green-700 transition-colors"
+              className="px-8 py-3 bg-growth text-white text-lg font-medium rounded-lg hover:bg-growth-dark transition-colors font-cairo"
             >
               تصفح المكتبة الزراعية
             </Link>
             <Link
               href="/farm-calculator"
-              className="px-8 py-3 border-2 border-green-600 text-green-600 text-lg font-medium rounded-lg hover:bg-green-50 transition-colors"
+              className="px-8 py-3 border-2 border-soil text-soil text-lg font-medium rounded-lg hover:bg-soil/5 transition-colors font-cairo"
             >
               حِسبة المزرعة
             </Link>
@@ -79,47 +90,47 @@ export default function HomePage() {
       {/* Features Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-3xl font-bold text-center text-soil mb-12 font-cairo">
             لماذا منصة الزراعة الذكية؟
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-green-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-growth/10 rounded-full flex items-center justify-center">
                 <span className="text-3xl">🌾</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">للمزارعين</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-soil mb-2 font-cairo">للمزارعين</h3>
+              <p className="text-soil/70 font-noto">
                 ابحث عن أفضل المنتجات الزراعية واحصل على نصائح من الخبراء
               </p>
             </div>
 
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-water/10 rounded-full flex items-center justify-center">
                 <span className="text-3xl">🏪</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">للموردين</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-soil mb-2 font-cairo">للموردين</h3>
+              <p className="text-soil/70 font-noto">
                 اعرض منتجاتك وتواصل مع المزارعين في جميع أنحاء اليمن
               </p>
             </div>
 
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-amber-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-sun/10 rounded-full flex items-center justify-center">
                 <span className="text-3xl">👨‍🔬</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">للخبراء</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-soil mb-2 font-cairo">للخبراء</h3>
+              <p className="text-soil/70 font-noto">
                 شارك معرفتك وقدم استشارات للمزارعين المحتاجين
               </p>
             </div>
 
             <div className="text-center p-6">
-              <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-soil/10 rounded-full flex items-center justify-center">
                 <span className="text-3xl">🔍</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">بحث ذكي</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-semibold text-soil mb-2 font-cairo">بحث ذكي</h3>
+              <p className="text-soil/70 font-noto">
                 ابحث في المنتجات والمقالات والخبراء من مكان واحد
               </p>
             </div>
@@ -128,111 +139,111 @@ export default function HomePage() {
       </section>
 
       {/* Smart Agriculture Tools Section */}
-      <section className="py-16 bg-gradient-to-b from-green-50 to-white">
+      <section className="py-16 bg-beige">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-4">
+          <h2 className="text-3xl font-bold text-center text-soil mb-4 font-cairo">
             أدوات الزراعة الذكية
           </h2>
-          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-soil/70 mb-12 max-w-2xl mx-auto font-noto">
             ابدأ من التعرف على تربتك، ثم احسب احتياجاتك، وإذا واجهت مشكلة معقدة — اسأل الخبير.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Tool 1: Soil Guide */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-amber-100 hover:border-amber-300 transition-colors">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-soil/10 hover:border-soil/30 transition-colors">
               <div className="text-center mb-4">
-                <div className="w-16 h-16 mx-auto mb-3 bg-amber-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-3 bg-soil/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🌾</span>
                 </div>
-                <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-2">
+                <span className="inline-block px-3 py-1 bg-growth/10 text-growth text-sm font-medium rounded-full mb-2 font-cairo">
                   مجاني
                 </span>
-                <h3 className="text-lg font-bold text-gray-900">دليل التربة</h3>
+                <h3 className="text-lg font-bold text-soil font-cairo">دليل التربة</h3>
               </div>
-              <p className="text-gray-600 text-center text-sm mb-4">
+              <p className="text-soil/70 text-center text-sm mb-4 font-noto">
                 تعرف على نوع تربتك ومشاكلها الشائعة وكيف تتعامل معها.
               </p>
-              <p className="text-xs text-gray-500 text-center mb-4">
+              <p className="text-xs text-soil/60 text-center mb-4 font-noto">
                 <strong>متى تستخدمه؟</strong> لفهم طبيعة أرضك.
               </p>
               <Link
                 href="/soil-types"
-                className="block w-full text-center py-2.5 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-colors font-medium text-sm"
+                className="block w-full text-center py-2.5 bg-soil text-white rounded-lg hover:bg-soil-dark transition-colors font-medium text-sm font-cairo"
               >
                 دليل التربة
               </Link>
             </div>
 
             {/* Tool 2: Irrigation Calculator */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-green-100 hover:border-green-300 transition-colors">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-growth/10 hover:border-growth/30 transition-colors">
               <div className="text-center mb-4">
-                <div className="w-16 h-16 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-3 bg-growth/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🧮</span>
                 </div>
-                <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-2">
+                <span className="inline-block px-3 py-1 bg-growth/10 text-growth text-sm font-medium rounded-full mb-2 font-cairo">
                   مجاني
                 </span>
-                <h3 className="text-lg font-bold text-gray-900">حاسبة الري</h3>
+                <h3 className="text-lg font-bold text-soil font-cairo">حاسبة الري</h3>
               </div>
-              <p className="text-gray-600 text-center text-sm mb-4">
+              <p className="text-soil/70 text-center text-sm mb-4 font-noto">
                 احصل على توصية ري عامة بناءً على نوع تربتك ومحصولك.
               </p>
-              <p className="text-xs text-gray-500 text-center mb-4">
+              <p className="text-xs text-soil/60 text-center mb-4 font-noto">
                 <strong>متى تستخدمها؟</strong> لتحديد كمية الري المناسبة.
               </p>
               <Link
                 href="/calculator"
-                className="block w-full text-center py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+                className="block w-full text-center py-2.5 bg-growth text-white rounded-lg hover:bg-growth-dark transition-colors font-medium text-sm font-cairo"
               >
                 حاسبة الري
               </Link>
             </div>
 
             {/* Tool 3: Fertilizer Calculator */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-teal-100 hover:border-teal-300 transition-colors">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-growth/10 hover:border-growth/30 transition-colors">
               <div className="text-center mb-4">
-                <div className="w-16 h-16 mx-auto mb-3 bg-teal-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-3 bg-growth/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🌿</span>
                 </div>
-                <span className="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-2">
+                <span className="inline-block px-3 py-1 bg-growth/10 text-growth text-sm font-medium rounded-full mb-2 font-cairo">
                   مجاني
                 </span>
-                <h3 className="text-lg font-bold text-gray-900">حاسبة الأسمدة</h3>
+                <h3 className="text-lg font-bold text-soil font-cairo">حاسبة الأسمدة</h3>
               </div>
-              <p className="text-gray-600 text-center text-sm mb-4">
+              <p className="text-soil/70 text-center text-sm mb-4 font-noto">
                 حدد نوع السماد المناسب حسب مرحلة النمو ونوع التربة.
               </p>
-              <p className="text-xs text-gray-500 text-center mb-4">
+              <p className="text-xs text-soil/60 text-center mb-4 font-noto">
                 <strong>متى تستخدمها؟</strong> لاختيار السماد الأنسب لمحصولك.
               </p>
               <Link
                 href="/fertilizer-calculator"
-                className="block w-full text-center py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium text-sm"
+                className="block w-full text-center py-2.5 bg-growth text-white rounded-lg hover:bg-growth-dark transition-colors font-medium text-sm font-cairo"
               >
                 حاسبة الأسمدة
               </Link>
             </div>
 
             {/* Tool 4: Ask Murad */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-purple-100 hover:border-purple-300 transition-colors">
+            <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-soil/10 hover:border-soil/30 transition-colors">
               <div className="text-center mb-4">
-                <div className="w-16 h-16 mx-auto mb-3 bg-purple-100 rounded-full flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-3 bg-soil/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">👨‍🌾</span>
                 </div>
-                <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 text-sm font-medium rounded-full mb-2">
+                <span className="inline-block px-3 py-1 bg-soil/10 text-soil text-sm font-medium rounded-full mb-2 font-cairo">
                   استشارة متخصصة
                 </span>
-                <h3 className="text-lg font-bold text-gray-900">اسأل مراد</h3>
+                <h3 className="text-lg font-bold text-soil font-cairo">اسأل مراد</h3>
               </div>
-              <p className="text-gray-600 text-center text-sm mb-4">
+              <p className="text-soil/70 text-center text-sm mb-4 font-noto">
                 صوّر مشكلتك واحصل على تشخيص وحل مخصص من خبير زراعي.
               </p>
-              <p className="text-xs text-gray-500 text-center mb-4">
+              <p className="text-xs text-soil/60 text-center mb-4 font-noto">
                 <strong>متى تستخدمها؟</strong> عند وجود مشكلة معقدة.
               </p>
               <Link
                 href="/ask-murad"
-                className="block w-full text-center py-2.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium text-sm"
+                className="block w-full text-center py-2.5 bg-soil text-white rounded-lg hover:bg-soil-dark transition-colors font-medium text-sm font-cairo"
               >
                 استشر الخبير
               </Link>
@@ -242,16 +253,16 @@ export default function HomePage() {
       </section>
 
       {/* Library Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-green-50">
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-2 bg-growth/10 text-growth rounded-full text-sm font-medium mb-4 font-cairo">
               جديد
             </span>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-soil mb-4 font-cairo">
               المكتبة الزراعية
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-soil/70 max-w-2xl mx-auto font-noto">
               مرجعك الشامل للزراعة في اليمن. مقالات عملية، جداول مبسطة، وحلول للمشاكل الشائعة.
             </p>
           </div>
@@ -260,18 +271,18 @@ export default function HomePage() {
             {/* Qat Guide */}
             <Link
               href="/library/qat-guide"
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-green-100 hover:border-green-300"
+              className="bg-beige rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-growth/10 hover:border-growth/30"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
+                <div className="w-14 h-14 bg-growth/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🌳</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">دليل زراعة القات</h3>
-                  <p className="text-sm text-gray-500">4 مقالات</p>
+                  <h3 className="text-lg font-bold text-soil font-cairo">دليل زراعة القات</h3>
+                  <p className="text-sm text-soil/60 font-noto">4 مقالات</p>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm">
+              <p className="text-soil/70 text-sm font-noto">
                 برامج تسميد وري، علامات نقص العناصر، وأخطاء شائعة.
               </p>
             </Link>
@@ -279,18 +290,18 @@ export default function HomePage() {
             {/* Soil & Fertilization */}
             <Link
               href="/library/soil-fertilization"
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-amber-100 hover:border-amber-300"
+              className="bg-beige rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-soil/10 hover:border-soil/30"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center">
+                <div className="w-14 h-14 bg-soil/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">🌍</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">صحة التربة والتسميد</h3>
-                  <p className="text-sm text-gray-500">4 مقالات</p>
+                  <h3 className="text-lg font-bold text-soil font-cairo">صحة التربة والتسميد</h3>
+                  <p className="text-sm text-soil/60 font-noto">4 مقالات</p>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm">
+              <p className="text-soil/70 text-sm font-noto">
                 كيف تعرف تربتك؟ الفرق بين الأسمدة، وأخطاء التسميد.
               </p>
             </Link>
@@ -298,18 +309,18 @@ export default function HomePage() {
             {/* Irrigation */}
             <Link
               href="/library/irrigation-management"
-              className="bg-white rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-blue-100 hover:border-blue-300"
+              className="bg-beige rounded-2xl shadow-md hover:shadow-lg transition-shadow p-6 border-2 border-water/10 hover:border-water/30"
             >
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center">
+                <div className="w-14 h-14 bg-water/10 rounded-full flex items-center justify-center">
                   <span className="text-3xl">💧</span>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900">الري وإدارة المياه</h3>
-                  <p className="text-sm text-gray-500">4 مقالات</p>
+                  <h3 className="text-lg font-bold text-soil font-cairo">الري وإدارة المياه</h3>
+                  <p className="text-sm text-soil/60 font-noto">4 مقالات</p>
                 </div>
               </div>
-              <p className="text-gray-600 text-sm">
+              <p className="text-soil/70 text-sm font-noto">
                 متى تسقي؟ علامات الإفراط، وتوفير المياه.
               </p>
             </Link>
@@ -318,7 +329,7 @@ export default function HomePage() {
           <div className="text-center mt-8">
             <Link
               href="/library"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-bold text-lg"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-growth text-white rounded-xl hover:bg-growth-dark transition-colors font-bold text-lg font-cairo"
             >
               <span>📚</span>
               تصفح المكتبة الكاملة
@@ -328,48 +339,48 @@ export default function HomePage() {
       </section>
 
       {/* Mobeed Alyawm Section */}
-      <section className="py-16 bg-gradient-to-b from-green-50 to-orange-50">
+      <section className="py-16 bg-beige">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-orange-200">
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden border-2 border-growth/20">
             <div className="md:flex">
               {/* Content Side */}
               <div className="p-8 md:p-12 md:w-2/3">
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="inline-block px-4 py-2 bg-orange-100 text-orange-700 rounded-full text-sm font-bold">
+                  <span className="inline-block px-4 py-2 bg-growth/10 text-growth rounded-full text-sm font-bold font-cairo">
                     🧪 توعية يومية
                   </span>
-                  <span className="inline-block px-3 py-1 bg-red-100 text-red-600 rounded-full text-xs font-medium animate-pulse">
+                  <span className="inline-block px-3 py-1 bg-sun/20 text-sun-dark rounded-full text-xs font-medium animate-pulse font-cairo">
                     جديد
                   </span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-soil mb-4 font-cairo">
                   مبيد اليوم
                 </h2>
-                <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                <p className="text-soil/70 text-lg mb-6 leading-relaxed font-noto">
                   صفحة توعوية يومية توضّح حقيقة المبيدات، المواد الفعالة، الأخطاء الشائعة، والبدائل الآمنة بلغة المزارع.
                 </p>
                 <ul className="space-y-3 mb-8">
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                  <li className="flex items-center gap-3 text-soil/80 font-noto">
+                    <span className="w-6 h-6 bg-growth/10 rounded-full flex items-center justify-center text-growth">✓</span>
                     <span>كيف تفرق بين المبيد الأصلي والمغشوش؟</span>
                   </li>
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                  <li className="flex items-center gap-3 text-soil/80 font-noto">
+                    <span className="w-6 h-6 bg-growth/10 rounded-full flex items-center justify-center text-growth">✓</span>
                     <span>متى الوقت الصحيح للرش؟</span>
                   </li>
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                  <li className="flex items-center gap-3 text-soil/80 font-noto">
+                    <span className="w-6 h-6 bg-growth/10 rounded-full flex items-center justify-center text-growth">✓</span>
                     <span>أخطاء شائعة في خلط المبيدات</span>
                   </li>
-                  <li className="flex items-center gap-3 text-gray-700">
-                    <span className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">✓</span>
+                  <li className="flex items-center gap-3 text-soil/80 font-noto">
+                    <span className="w-6 h-6 bg-growth/10 rounded-full flex items-center justify-center text-growth">✓</span>
                     <span>بدائل طبيعية آمنة</span>
                   </li>
                 </ul>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     href="/mobeed-alyawm"
-                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors font-bold text-lg shadow-lg hover:shadow-xl"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-growth text-white rounded-xl hover:bg-growth-dark transition-colors font-bold text-lg shadow-lg hover:shadow-xl font-cairo"
                   >
                     <span>🧪</span>
                     ادخل مبيد اليوم
@@ -378,7 +389,7 @@ export default function HomePage() {
                     href="https://www.facebook.com/profile.php?id=61586143498963"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-4 border-2 border-blue-500 text-blue-600 rounded-xl hover:bg-blue-50 transition-colors font-medium"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-4 border-2 border-water text-water rounded-xl hover:bg-water/5 transition-colors font-medium font-cairo"
                   >
                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -388,11 +399,11 @@ export default function HomePage() {
                 </div>
               </div>
               {/* Visual Side */}
-              <div className="md:w-1/3 bg-gradient-to-br from-orange-400 to-orange-600 p-8 flex items-center justify-center">
+              <div className="md:w-1/3 bg-gradient-to-br from-growth to-growth-dark p-8 flex items-center justify-center">
                 <div className="text-center text-white">
                   <div className="text-8xl mb-4">🧪</div>
-                  <p className="text-2xl font-bold mb-2">معلومة كل يوم</p>
-                  <p className="text-orange-100">لحماية محصولك وصحتك</p>
+                  <p className="text-2xl font-bold mb-2 font-cairo">معلومة كل يوم</p>
+                  <p className="text-growth-light font-noto">لحماية محصولك وصحتك</p>
                 </div>
               </div>
             </div>
@@ -401,38 +412,35 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-green-600">
+      <section className="py-16 bg-soil">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             <div>
-              <p className="text-4xl font-bold">50+</p>
-              <p className="text-green-100 mt-1">دليل ومقال</p>
+              <p className="text-4xl font-bold font-cairo">50+</p>
+              <p className="text-beige/80 mt-1 font-noto">دليل ومقال</p>
             </div>
             <div>
-              <p className="text-4xl font-bold">{articles.length}+</p>
-              <p className="text-green-100 mt-1">مقال تعليمي</p>
+              <p className="text-4xl font-bold font-cairo">{articles.length}+</p>
+              <p className="text-beige/80 mt-1 font-noto">مقال تعليمي</p>
             </div>
             <div>
-              <p className="text-4xl font-bold">{experts.length}+</p>
-              <p className="text-green-100 mt-1">خبير زراعي</p>
+              <p className="text-4xl font-bold font-cairo">{experts.length}+</p>
+              <p className="text-beige/80 mt-1 font-noto">خبير زراعي</p>
             </div>
             <div>
-              <p className="text-4xl font-bold">1000+</p>
-              <p className="text-green-100 mt-1">مزارع مسجل</p>
+              <p className="text-4xl font-bold font-cairo">1000+</p>
+              <p className="text-beige/80 mt-1 font-noto">مزارع مسجل</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Latest Products - مخفي مؤقتاً */}
-      {/* سيتم إعادة تفعيله لاحقاً */}
-
       {/* Latest Articles */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold text-gray-900">أحدث المقالات</h2>
-            <Link href="/articles" className="text-blue-600 hover:underline">
+            <h2 className="text-2xl font-bold text-soil font-cairo">أحدث المقالات</h2>
+            <Link href="/articles" className="text-growth hover:underline font-cairo">
               عرض الكل
             </Link>
           </div>
@@ -442,21 +450,21 @@ export default function HomePage() {
               <Link
                 key={article.id}
                 href={`/articles/${article.slug}`}
-                className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors overflow-hidden flex"
+                className="bg-beige rounded-xl hover:bg-beige-dark transition-colors overflow-hidden flex"
               >
-                <div className="w-32 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center flex-shrink-0">
+                <div className="w-32 bg-gradient-to-br from-growth/20 to-growth/40 flex items-center justify-center flex-shrink-0">
                   <span className="text-4xl">{article.imageEmoji}</span>
                 </div>
                 <div className="p-4 flex-1">
                   <div className="flex flex-wrap gap-1 mb-2">
                     {article.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 bg-blue-100 text-blue-800 text-xs rounded-full">
+                      <span key={tag} className="px-2 py-0.5 bg-growth/10 text-growth text-xs rounded-full font-noto">
                         {tag}
                       </span>
                     ))}
                   </div>
-                  <h3 className="font-semibold text-gray-900 line-clamp-1">{article.title}</h3>
-                  <p className="text-sm text-gray-500 mt-1">{article.authorName}</p>
+                  <h3 className="font-semibold text-soil line-clamp-1 font-cairo">{article.title}</h3>
+                  <p className="text-sm text-soil/60 mt-1 font-noto">{article.authorName}</p>
                 </div>
               </Link>
             ))}
@@ -465,92 +473,92 @@ export default function HomePage() {
       </section>
 
       {/* User Types Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-beige">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          <h2 className="text-3xl font-bold text-center text-soil mb-12 font-cairo">
             انضم إلينا حسب تخصصك
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Farmer Card */}
-            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-growth/10 hover:shadow-md transition-shadow">
               <div className="text-center mb-6">
                 <span className="text-5xl">🌾</span>
-                <h3 className="text-2xl font-bold text-gray-900 mt-4">مزارع</h3>
+                <h3 className="text-2xl font-bold text-soil mt-4 font-cairo">مزارع</h3>
               </div>
-              <ul className="space-y-3 text-gray-600 mb-6">
+              <ul className="space-y-3 text-soil/70 mb-6 font-noto">
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   تصفح المنتجات الزراعية
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   قراءة المقالات التعليمية
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   طلب استشارات من الخبراء
                 </li>
               </ul>
               <Link
                 href="/register?role=farmer"
-                className="block w-full text-center py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="block w-full text-center py-3 bg-growth text-white rounded-lg hover:bg-growth-dark transition-colors font-cairo"
               >
                 سجل كمزارع
               </Link>
             </div>
 
             {/* Supplier Card */}
-            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-water/10 hover:shadow-md transition-shadow">
               <div className="text-center mb-6">
                 <span className="text-5xl">🏪</span>
-                <h3 className="text-2xl font-bold text-gray-900 mt-4">مورد</h3>
+                <h3 className="text-2xl font-bold text-soil mt-4 font-cairo">مورد</h3>
               </div>
-              <ul className="space-y-3 text-gray-600 mb-6">
+              <ul className="space-y-3 text-soil/70 mb-6 font-noto">
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   عرض منتجاتك للمزارعين
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   إدارة المخزون والأسعار
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   التواصل المباشر مع العملاء
                 </li>
               </ul>
               <Link
                 href="/register?role=supplier"
-                className="block w-full text-center py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="block w-full text-center py-3 bg-water text-white rounded-lg hover:bg-water-dark transition-colors font-cairo"
               >
                 سجل كمورد
               </Link>
             </div>
 
             {/* Expert Card */}
-            <div className="bg-white rounded-xl shadow-sm p-8 border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="bg-white rounded-xl shadow-sm p-8 border border-soil/10 hover:shadow-md transition-shadow">
               <div className="text-center mb-6">
                 <span className="text-5xl">👨‍🔬</span>
-                <h3 className="text-2xl font-bold text-gray-900 mt-4">خبير زراعي</h3>
+                <h3 className="text-2xl font-bold text-soil mt-4 font-cairo">خبير زراعي</h3>
               </div>
-              <ul className="space-y-3 text-gray-600 mb-6">
+              <ul className="space-y-3 text-soil/70 mb-6 font-noto">
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   نشر مقالات تعليمية
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   تقديم استشارات للمزارعين
                 </li>
                 <li className="flex items-center gap-2">
-                  <span className="text-green-500">✓</span>
+                  <span className="text-growth">✓</span>
                   بناء سمعتك المهنية
                 </li>
               </ul>
               <Link
                 href="/register?role=expert"
-                className="block w-full text-center py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors"
+                className="block w-full text-center py-3 bg-soil text-white rounded-lg hover:bg-soil-dark transition-colors font-cairo"
               >
                 سجل كخبير
               </Link>
@@ -560,41 +568,47 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-soil text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-2xl">🌱</span>
-                <span className="font-bold">الزراعة الذكية</span>
+                <Image 
+                  src="/logo-knowledge-tree.png" 
+                  alt="شجرة المعرفة الزراعية" 
+                  width={32} 
+                  height={32}
+                  className="w-8 h-8"
+                />
+                <span className="font-bold font-cairo">الزراعة الذكية</span>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className="text-beige/70 text-sm font-noto">
                 منصة متكاملة للزراعة في اليمن
               </p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">روابط سريعة</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-4 font-cairo">روابط سريعة</h4>
+              <ul className="space-y-2 text-beige/70 font-noto">
                 <li><Link href="/products" className="hover:text-white">المنتجات</Link></li>
                 <li><Link href="/articles" className="hover:text-white">المقالات</Link></li>
                 <li><Link href="/experts" className="hover:text-white">الخبراء</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">الحساب</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-4 font-cairo">الحساب</h4>
+              <ul className="space-y-2 text-beige/70 font-noto">
                 <li><Link href="/login" className="hover:text-white">تسجيل الدخول</Link></li>
                 <li><Link href="/register" className="hover:text-white">إنشاء حساب</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4">تواصل معنا</h4>
-              <p className="text-gray-400 text-sm">
+              <h4 className="font-semibold mb-4 font-cairo">تواصل معنا</h4>
+              <p className="text-beige/70 text-sm font-noto">
                 info@yemen-agri.com
               </p>
             </div>
           </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+          <div className="border-t border-beige/20 mt-8 pt-8 text-center text-beige/70 font-noto">
             <p>© 2024 منصة الزراعة الذكية اليمنية. جميع الحقوق محفوظة.</p>
           </div>
         </div>

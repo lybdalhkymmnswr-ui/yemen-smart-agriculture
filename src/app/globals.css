@@ -1,27 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* الهوية البصرية الجديدة - ألوان ترابية */
+  --background: #F5F5DC; /* بيج هادئ */
+  --foreground: #333333; /* رمادي داكن للنصوص */
+  
+  /* الألوان الأساسية */
+  --soil-brown: #6D4C41;
+  --growth-green: #4CAF50;
+  --calm-beige: #F5F5DC;
+  
+  /* الألوان الثانوية */
+  --sun-yellow: #FFC107;
+  --water-blue: #2196F3;
+  --text-dark: #333333;
+  
+  /* ألوان إضافية للتوافق */
+  --primary: #4CAF50;
+  --primary-dark: #388E3C;
+  --secondary: #6D4C41;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #2D2A26;
+    --foreground: #E8E4D0;
   }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Noto Sans Arabic', 'Cairo', Arial, sans-serif;
+}
+
+/* خط العناوين */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+  font-weight: 700;
+}
+
+/* خط النصوص */
+p, span, a, li, td, th, label, input, textarea, button {
+  font-family: 'Noto Sans Arabic', 'Cairo', sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* أنماط مخصصة للهوية البصرية */
+.bg-knowledge {
+  background-color: var(--calm-beige);
+}
+
+.text-soil {
+  color: var(--soil-brown);
+}
+
+.text-growth {
+  color: var(--growth-green);
+}
+
+.border-soil {
+  border-color: var(--soil-brown);
+}
+
+.bg-soil {
+  background-color: var(--soil-brown);
+}
+
+.bg-growth {
+  background-color: var(--growth-green);
+}
+
+/* تحسين مظهر الأزرار */
+.btn-knowledge {
+  background-color: var(--growth-green);
+  color: white;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-knowledge:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--soil-brown);
+  color: white;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 600;
+}
+
+/* خلفية بنمط المدرجات الخفيف */
+.bg-terraces {
+  background-color: var(--calm-beige);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(109, 76, 65, 0.03) 40px,
+      rgba(109, 76, 65, 0.03) 41px
+    );
+}
+
+/* خلفية بملمس الورق */
+.bg-paper {
+  background-color: var(--calm-beige);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
 }
