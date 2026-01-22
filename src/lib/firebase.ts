@@ -15,24 +15,11 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || 'your-app-id',
 };
 
-// Debug: Log Firebase config (only in browser)
-if (typeof window !== 'undefined') {
-  console.log('=== Firebase Config Debug ===');
-  console.log('Project ID:', firebaseConfig.projectId);
-  console.log('Auth Domain:', firebaseConfig.authDomain);
-  console.log('API Key exists:', !!firebaseConfig.apiKey && firebaseConfig.apiKey !== 'your-api-key');
-}
-
 // Initialize Firebase (prevent re-initialization in development)
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 // Initialize Firebase services
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-
-// Debug: Log db instance
-if (typeof window !== 'undefined') {
-  console.log('Firestore db initialized:', !!db);
-}
 
 export default app;
