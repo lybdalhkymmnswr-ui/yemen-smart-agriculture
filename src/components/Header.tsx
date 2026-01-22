@@ -4,13 +4,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
+// AUTH DISABLED: الكود محفوظ للرجوع له لاحقاً
+// import { useAuth } from '@/contexts/AuthContext';
+
+// Feature Flag: تعطيل تسجيل الدخول
+const AUTH_ENABLED = false;
 
 export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
-  const { user, logout, loading } = useAuth();
+  
+  // AUTH DISABLED: الكود محفوظ للرجوع له لاحقاً
+  // const { user, logout, loading } = useAuth();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,13 +25,14 @@ export default function Header() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Logout error:', error);
-    }
-  };
+  // AUTH DISABLED: الكود محفوظ للرجوع له لاحقاً
+  // const handleLogout = async () => {
+  //   try {
+  //     await logout();
+  //   } catch (error) {
+  //     console.error('Logout error:', error);
+  //   }
+  // };
 
   return (
     <header className="bg-beige shadow-sm sticky top-0 z-50 border-b border-soil/10">
@@ -101,21 +108,8 @@ export default function Header() {
               🌡️ إنذار المزارع
             </Link>
             
-            {loading ? (
-              <div className="w-20 h-8 bg-beige-dark animate-pulse rounded-lg"></div>
-            ) : user ? (
-              <div className="flex items-center gap-3">
-                <span className="text-sm text-soil font-noto">
-                  مرحباً، {user.displayName || 'مستخدم'}
-                </span>
-                <button
-                  onClick={handleLogout}
-                  className="px-3 py-1.5 text-sm text-soil border border-soil rounded-lg hover:bg-soil/5 transition-colors font-cairo"
-                >
-                  خروج
-                </button>
-              </div>
-            ) : (
+            {/* AUTH DISABLED: أزرار تسجيل الدخول مخفية - الكود محفوظ للرجوع له لاحقاً */}
+            {AUTH_ENABLED && (
               <>
                 <Link
                   href="/login"
@@ -252,24 +246,8 @@ export default function Header() {
                 🌡️ إنذار المزارع
               </Link>
               
-              {loading ? (
-                <div className="w-full h-10 bg-beige-dark animate-pulse rounded-lg mt-2"></div>
-              ) : user ? (
-                <div className="mt-2 space-y-2">
-                  <div className="px-4 py-2 text-soil bg-beige-dark rounded-lg font-noto">
-                    مرحباً، {user.displayName || 'مستخدم'}
-                  </div>
-                  <button
-                    onClick={() => {
-                      handleLogout();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full px-4 py-2 text-soil border border-soil rounded-lg font-cairo"
-                  >
-                    تسجيل الخروج
-                  </button>
-                </div>
-              ) : (
+              {/* AUTH DISABLED: أزرار تسجيل الدخول مخفية - الكود محفوظ للرجوع له لاحقاً */}
+              {AUTH_ENABLED && (
                 <div className="flex gap-2 mt-2">
                   <Link
                     href="/login"

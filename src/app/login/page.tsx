@@ -1,7 +1,57 @@
 'use client';
 
-// Login Page
-// Email/Password authentication for existing users
+// AUTH DISABLED: صفحة تسجيل الدخول معطلة مؤقتاً
+// الكود الأصلي محفوظ في التعليقات للرجوع له لاحقاً
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+// Feature Flag: تعطيل تسجيل الدخول
+const AUTH_ENABLED = false;
+
+export default function LoginPage() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // إعادة التوجيه للصفحة الرئيسية إذا كان تسجيل الدخول معطلاً
+    if (!AUTH_ENABLED) {
+      router.replace('/');
+    }
+  }, [router]);
+
+  // عرض رسالة مؤقتة أثناء إعادة التوجيه
+  if (!AUTH_ENABLED) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 py-12 px-4" dir="rtl">
+        <div className="max-w-md w-full text-center space-y-6 bg-white p-8 rounded-xl shadow-lg">
+          <div className="text-6xl">🌱</div>
+          <h1 className="text-2xl font-bold text-green-800">
+            منصة الزراعة الذكية اليمنية
+          </h1>
+          <p className="text-gray-600">
+            تسجيل الدخول غير مطلوب حالياً
+          </p>
+          <p className="text-sm text-gray-500">
+            جميع الميزات متاحة مباشرة بدون حساب
+          </p>
+          <Link 
+            href="/"
+            className="inline-block px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+          >
+            العودة للصفحة الرئيسية
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  // الكود الأصلي لتسجيل الدخول (معطل حالياً)
+  return null;
+}
+
+/* 
+=== الكود الأصلي محفوظ للرجوع له لاحقاً ===
 
 import React, { useState, FormEvent } from 'react';
 import Link from 'next/link';
@@ -20,9 +70,7 @@ export default function LoginPage() {
     
     try {
       await login(email, password);
-      // Redirect is handled in AuthContext
     } catch {
-      // Error is handled in AuthContext
     } finally {
       setIsSubmitting(false);
     }
@@ -31,7 +79,6 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 py-12 px-4 sm:px-6 lg:px-8" dir="rtl">
       <div className="max-w-md w-full space-y-8">
-        {/* Header */}
         <div className="text-center">
           <h1 className="text-3xl font-bold text-green-800">
             🌱 منصة الزراعة الذكية اليمنية
@@ -44,9 +91,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Login Form */}
         <form className="mt-8 space-y-6 bg-white p-8 rounded-xl shadow-lg" onSubmit={handleSubmit}>
-          {/* Error Message */}
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
               {error}
@@ -54,7 +99,6 @@ export default function LoginPage() {
           )}
 
           <div className="space-y-4">
-            {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 البريد الإلكتروني
@@ -73,7 +117,6 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Password Field */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 كلمة المرور
@@ -93,28 +136,16 @@ export default function LoginPage() {
             </div>
           </div>
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
               disabled={isSubmitting || loading}
               className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
-              {isSubmitting ? (
-                <span className="flex items-center">
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  جاري تسجيل الدخول...
-                </span>
-              ) : (
-                'تسجيل الدخول'
-              )}
+              {isSubmitting ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
             </button>
           </div>
 
-          {/* Register Link */}
           <div className="text-center text-sm">
             <span className="text-gray-600">ليس لديك حساب؟ </span>
             <Link href="/register" className="font-medium text-green-600 hover:text-green-500">
@@ -123,7 +154,6 @@ export default function LoginPage() {
           </div>
         </form>
 
-        {/* Back to Home */}
         <div className="text-center">
           <Link href="/" className="text-sm text-gray-500 hover:text-gray-700">
             ← العودة للصفحة الرئيسية
@@ -133,3 +163,4 @@ export default function LoginPage() {
     </div>
   );
 }
+*/
