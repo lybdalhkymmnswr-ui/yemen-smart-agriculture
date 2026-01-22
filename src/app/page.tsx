@@ -29,7 +29,8 @@ export default function HomePage() {
           {/* الشعار الكبير */}
           <div className="flex justify-center mb-6">
             <Image 
-              src="/logo-knowledge-tree.png" 
+              src="/logo-knowledge-tree.webp"
+              priority={true} 
               alt="شجرة المعرفة الزراعية" 
               width={120} 
               height={120}
@@ -574,7 +575,8 @@ export default function HomePage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Image 
-                  src="/logo-knowledge-tree.png" 
+                  src="/logo-knowledge-tree.webp"
+              priority={true} 
                   alt="شجرة المعرفة الزراعية" 
                   width={32} 
                   height={32}

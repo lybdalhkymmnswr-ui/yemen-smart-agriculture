@@ -2,19 +2,26 @@
 // Wraps all pages with AuthProvider and global styles
 
 import type { Metadata, Viewport } from 'next';
-import localFont from 'next/font/local';
+import { Cairo, Noto_Sans_Arabic } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
+// تحميل خط Cairo مع subsetting للعربية - وزنين فقط
+const cairo = Cairo({
+  subsets: ['arabic'],
+  weight: ['600', '700'],
+  display: 'swap',
+  variable: '--font-cairo',
+  preload: true,
 });
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+
+// تحميل خط Noto Sans Arabic مع subsetting للعربية - وزنين فقط
+const notoSansArabic = Noto_Sans_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '600'],
+  display: 'swap',
+  variable: '--font-noto-arabic',
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -81,7 +88,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#16a34a',
+  themeColor: '#4CAF50',
 };
 
 export default function RootLayout({
@@ -90,14 +97,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="ar" dir="rtl" className={`${cairo.variable} ${notoSansArabic.variable}`}>
+      <body className="antialiased font-noto">
         <AuthProvider>
           {children}
         </AuthProvider>

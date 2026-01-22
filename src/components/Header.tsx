@@ -34,7 +34,8 @@ export default function Header() {
           {/* Logo - الشعار الجديد */}
           <Link href="/" className="flex items-center gap-2 flex-shrink-0">
             <Image 
-              src="/logo-knowledge-tree.png" 
+              src="/logo-knowledge-tree.webp"
+              priority={true} 
               alt="شجرة المعرفة الزراعية" 
               width={40} 
               height={40}
