@@ -97,6 +97,9 @@ export default function Header() {
             <Link href="/farmer-notebook" className="text-soil hover:text-soil-dark transition-colors text-sm font-medium font-cairo">
               📒 دفتر المزارع
             </Link>
+            <Link href="/farm-alert" className="text-orange-600 hover:text-orange-700 transition-colors text-sm font-medium font-cairo">
+              🌡️ إنذار المزارع
+            </Link>
             
             {loading ? (
               <div className="w-20 h-8 bg-beige-dark animate-pulse rounded-lg"></div>
@@ -240,6 +243,13 @@ export default function Header() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 📒 دفتر المزارع
+              </Link>
+              <Link
+                href="/farm-alert"
+                className="px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg font-medium font-cairo"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                🌡️ إنذار المزارع
               </Link>
               
               {loading ? (
