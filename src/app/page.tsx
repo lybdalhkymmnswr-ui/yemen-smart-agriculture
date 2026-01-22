@@ -473,100 +473,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* User Types Section */}
-      <section className="py-16 bg-beige">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-soil mb-12 font-cairo">
-            انضم إلينا حسب تخصصك
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Farmer Card */}
-            <div className="bg-white rounded-xl shadow-sm p-8 border border-growth/10 hover:shadow-md transition-shadow">
-              <div className="text-center mb-6">
-                <span className="text-5xl">🌾</span>
-                <h3 className="text-2xl font-bold text-soil mt-4 font-cairo">مزارع</h3>
-              </div>
-              <ul className="space-y-3 text-soil/70 mb-6 font-noto">
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  تصفح المنتجات الزراعية
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  قراءة المقالات التعليمية
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  طلب استشارات من الخبراء
-                </li>
-              </ul>
-              <Link
-                href="/register?role=farmer"
-                className="block w-full text-center py-3 bg-growth text-white rounded-lg hover:bg-growth-dark transition-colors font-cairo"
-              >
-                سجل كمزارع
-              </Link>
-            </div>
-
-            {/* Supplier Card */}
-            <div className="bg-white rounded-xl shadow-sm p-8 border border-water/10 hover:shadow-md transition-shadow">
-              <div className="text-center mb-6">
-                <span className="text-5xl">🏪</span>
-                <h3 className="text-2xl font-bold text-soil mt-4 font-cairo">مورد</h3>
-              </div>
-              <ul className="space-y-3 text-soil/70 mb-6 font-noto">
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  عرض منتجاتك للمزارعين
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  إدارة المخزون والأسعار
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  التواصل المباشر مع العملاء
-                </li>
-              </ul>
-              <Link
-                href="/register?role=supplier"
-                className="block w-full text-center py-3 bg-water text-white rounded-lg hover:bg-water-dark transition-colors font-cairo"
-              >
-                سجل كمورد
-              </Link>
-            </div>
-
-            {/* Expert Card */}
-            <div className="bg-white rounded-xl shadow-sm p-8 border border-soil/10 hover:shadow-md transition-shadow">
-              <div className="text-center mb-6">
-                <span className="text-5xl">👨‍🔬</span>
-                <h3 className="text-2xl font-bold text-soil mt-4 font-cairo">خبير زراعي</h3>
-              </div>
-              <ul className="space-y-3 text-soil/70 mb-6 font-noto">
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  نشر مقالات تعليمية
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  تقديم استشارات للمزارعين
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-growth">✓</span>
-                  بناء سمعتك المهنية
-                </li>
-              </ul>
-              <Link
-                href="/register?role=expert"
-                className="block w-full text-center py-3 bg-soil text-white rounded-lg hover:bg-soil-dark transition-colors font-cairo"
-              >
-                سجل كخبير
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* AUTH DISABLED: قسم التسجيل مخفي مؤقتاً */}
 
       {/* Footer */}
       <footer className="bg-soil text-white py-12">
@@ -596,13 +503,7 @@ export default function HomePage() {
                 <li><Link href="/experts" className="hover:text-white">الخبراء</Link></li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-semibold mb-4 font-cairo">الحساب</h4>
-              <ul className="space-y-2 text-beige/70 font-noto">
-                <li><Link href="/login" className="hover:text-white">تسجيل الدخول</Link></li>
-                <li><Link href="/register" className="hover:text-white">إنشاء حساب</Link></li>
-              </ul>
-            </div>
+            {/* AUTH DISABLED: روابط الحساب مخفية مؤقتاً */}
             <div>
               <h4 className="font-semibold mb-4 font-cairo">تواصل معنا</h4>
               <p className="text-beige/70 text-sm font-noto">
