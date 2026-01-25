@@ -547,6 +547,13 @@ export default function HomePage() {
                 info@yemen-agri.com
               </p>
             </div>
+            <div>
+              <h4 className="font-semibold mb-4 font-cairo">معلومات</h4>
+              <ul className="space-y-2 text-beige/70 font-noto">
+                <li><Link href="/about" className="hover:text-white">من نحن</Link></li>
+                <li><Link href="/privacy" className="hover:text-white">سياسة الخصوصية</Link></li>
+              </ul>
+            </div>
           </div>
           <div className="border-t border-beige/20 mt-8 pt-8 text-center text-beige/70 font-noto">
             <p>© 2024 منصة الزراعة الذكية اليمنية. جميع الحقوق محفوظة.</p>
