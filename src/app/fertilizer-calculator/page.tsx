@@ -385,7 +385,7 @@ export default function FertilizerCalculatorPage() {
             disabled={!isFormComplete}
             className={`w-full mt-6 py-4 rounded-lg font-bold text-lg transition-colors ${
               isFormComplete
-                ? 'bg-green-600 text-white hover:bg-green-700'
+                ? 'bg-green-700 text-white hover:bg-green-600'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >

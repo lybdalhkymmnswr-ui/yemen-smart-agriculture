@@ -255,7 +255,7 @@ export default function CalculatorPage() {
           <button
             onClick={calculateWater}
             disabled={!cropType || !irrigationType || (calculationType === 'area' ? !area : !treeCount)}
-            className="w-full mt-6 py-4 bg-growth text-white rounded-lg font-bold text-lg hover:bg-growth-dark transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-cairo"
+            className="w-full mt-6 py-4 bg-growth-dark text-white rounded-lg font-bold text-lg hover:bg-growth transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-cairo"
           >
             {isArabic ? '🧮 احسب كمية المياه' : '🧮 Calculate Water'}
           </button>
