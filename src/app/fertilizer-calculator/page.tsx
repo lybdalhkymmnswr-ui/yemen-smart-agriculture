@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import Link from 'next/link';
+import Header from '@/components/Header';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // أنواع التربة
 const soilTypes = [
@@ -222,6 +224,7 @@ const getContextualTips = (soil: string, stage: string, irrigation: string): { i
 };
 
 export default function FertilizerCalculatorPage() {
+  useLanguage(); // For RTL support
   const [soilType, setSoilType] = useState('');
   const [cropType, setCropType] = useState('');
   const [growthStage, setGrowthStage] = useState('');
@@ -272,16 +275,8 @@ export default function FertilizerCalculatorPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white" dir="rtl">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link href="/" className="flex items-center gap-2 text-green-700 hover:text-green-800">
-            <span className="text-2xl">🌱</span>
-            <span className="font-bold">الزراعة الذكية</span>
-          </Link>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-b from-beige to-white">
+      <Header />
 
       {/* Main Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">

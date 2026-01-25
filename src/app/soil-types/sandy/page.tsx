@@ -148,7 +148,7 @@ export default function SandySoilPage() {
             href="/soil-types" 
             className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             العودة لدليل التربة
@@ -158,7 +158,7 @@ export default function SandySoilPage() {
             className="flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium"
           >
             التربة الجافة
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg aria-hidden="true" className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </Link>

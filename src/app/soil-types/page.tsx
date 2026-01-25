@@ -105,7 +105,7 @@ export default function SoilTypesPage() {
 
                 <div className="flex items-center text-amber-600 text-sm font-medium">
                   <span>اقرأ المزيد</span>
-                  <svg className="w-4 h-4 mr-1 group-hover:translate-x-[-4px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg aria-hidden="true" className="w-4 h-4 mr-1 group-hover:translate-x-[-4px] transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                   </svg>
                 </div>

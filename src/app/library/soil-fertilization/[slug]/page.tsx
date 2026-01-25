@@ -419,7 +419,7 @@ export default function SoilFertilizationArticlePage() {
             href="/library/soil-fertilization"
             className="inline-flex items-center gap-2 text-amber-600 hover:text-amber-700 font-medium"
           >
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
             العودة لقسم صحة التربة والتسميد

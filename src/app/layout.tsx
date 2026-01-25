@@ -1,14 +1,15 @@
 // Root Layout - Yemen Smart Agriculture Platform
-// Wraps all pages with AuthProvider and global styles
+// Wraps all pages with AuthProvider, LanguageProvider and global styles
 
 import type { Metadata, Viewport } from 'next';
 import { Cairo, Noto_Sans_Arabic } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 // تحميل خط Cairo مع subsetting للعربية - وزنين فقط
 const cairo = Cairo({
-  subsets: ['arabic'],
+  subsets: ['arabic', 'latin'],
   weight: ['600', '700'],
   display: 'swap',
   variable: '--font-cairo',
@@ -97,10 +98,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${cairo.variable} ${notoSansArabic.variable}`}>
+    <html lang="ar" dir="rtl" className={`${cairo.variable} ${notoSansArabic.variable}`} suppressHydrationWarning>
       <body className="antialiased font-noto">
         <AuthProvider>
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </AuthProvider>
       </body>
     </html>

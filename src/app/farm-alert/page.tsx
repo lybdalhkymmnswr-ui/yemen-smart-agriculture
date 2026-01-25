@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import Header from '@/components/Header';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // بيانات المحافظات والمناطق مع الإحداثيات
 const governorates: Record<string, { name: string; regions: { name: string; lat: number; lon: number }[] }> = {
@@ -117,6 +119,7 @@ const alertStyles: Record<AlertLevel, { bg: string; border: string; icon: string
 };
 
 export default function FarmAlertPage() {
+  useLanguage(); // For RTL support
   const [selectedGovernorate, setSelectedGovernorate] = useState<string>('');
   const [selectedRegion, setSelectedRegion] = useState<string>('');
   const [loading, setLoading] = useState(false);
@@ -160,8 +163,9 @@ export default function FarmAlertPage() {
   const style = result ? alertStyles[result.level] : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white py-8 px-4">
-      <div className="max-w-md mx-auto">
+    <div className="min-h-screen bg-gradient-to-b from-beige to-white">
+      <Header />
+      <div className="max-w-md mx-auto px-4 py-8">
         {/* العنوان */}
         <div className="text-center mb-8">
           <div className="text-4xl mb-3">🌡️</div>

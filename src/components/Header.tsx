@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import LanguageSwitcher from './LanguageSwitcher';
+import { useLanguage } from '@/contexts/LanguageContext';
 // AUTH DISABLED: الكود محفوظ للرجوع له لاحقاً
 // import { useAuth } from '@/contexts/AuthContext';
 
@@ -14,6 +16,7 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const { t, language } = useLanguage();
   
   // AUTH DISABLED: الكود محفوظ للرجوع له لاحقاً
   // const { user, logout, loading } = useAuth();
@@ -43,12 +46,14 @@ export default function Header() {
             <Image 
               src="/logo-knowledge-tree.webp"
               priority={true} 
-              alt="شجرة المعرفة الزراعية" 
+              alt={language === 'ar' ? 'شجرة المعرفة الزراعية' : 'Agricultural Knowledge Tree'} 
               width={40} 
               height={40}
               className="w-10 h-10"
             />
-            <span className="text-lg font-bold text-soil hidden sm:inline font-cairo">الزراعة الذكية</span>
+            <span className="text-lg font-bold text-soil hidden sm:inline font-cairo">
+              {language === 'ar' ? 'الزراعة الذكية' : 'Smart Agriculture'}
+            </span>
           </Link>
 
           {/* Search Bar - Desktop */}
@@ -58,14 +63,15 @@ export default function Header() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="ابحث عن مقال أو دليل زراعي..."
+                placeholder={language === 'ar' ? 'ابحث عن مقال أو دليل زراعي...' : 'Search for articles or guides...'}
                 className="w-full px-4 py-2 pr-10 text-sm border border-soil/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-growth focus:border-growth bg-white font-noto"
               />
               <button
                 type="submit"
                 className="absolute inset-y-0 right-0 flex items-center pr-3 text-soil/60 hover:text-growth"
+                aria-label={language === 'ar' ? 'بحث' : 'Search'}
               >
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </button>
@@ -74,39 +80,27 @@ export default function Header() {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center gap-4">
-            <Link href="/products" className="text-soil/70 hover:text-growth transition-colors text-sm font-noto">
-              المنتجات
-            </Link>
-            <Link href="/articles" className="text-soil/70 hover:text-growth transition-colors text-sm font-noto">
-              المقالات
-            </Link>
-            <Link href="/experts" className="text-soil/70 hover:text-growth transition-colors text-sm font-noto">
-              الخبراء
-            </Link>
             <Link href="/library" className="text-growth hover:text-growth-dark transition-colors text-sm font-medium font-cairo">
-              المكتبة الزراعية
-            </Link>
-            <Link href="/soil-types" className="text-soil hover:text-soil-dark transition-colors text-sm font-medium font-cairo">
-              دليل التربة
+              {t.nav.library}
             </Link>
             <Link href="/calculator" className="text-growth hover:text-growth-dark transition-colors text-sm font-medium font-cairo">
-              الحاسبة
+              {t.nav.calculator}
             </Link>
-            <Link href="/ask-murad" className="text-soil hover:text-soil-dark transition-colors text-sm font-medium font-cairo">
-              اسأل مراد ⭐
+            <Link href="/fertilizer-calculator" className="text-growth hover:text-growth-dark transition-colors text-sm font-medium font-cairo">
+              {t.nav.fertilizerCalc}
+            </Link>
+            <Link href="/soil-types" className="text-soil hover:text-soil-dark transition-colors text-sm font-medium font-cairo">
+              {t.nav.soilTypes}
             </Link>
             <Link href="/mobeed-alyawm" className="text-growth hover:text-growth-dark transition-colors text-sm font-medium font-cairo">
-              🧪 مبيد اليوم
-            </Link>
-            <Link href="/farm-calculator" className="text-soil hover:text-soil-dark transition-colors text-sm font-medium font-cairo">
-              🧮 حِسبة المزرعة
-            </Link>
-            <Link href="/farmer-notebook" className="text-soil hover:text-soil-dark transition-colors text-sm font-medium font-cairo">
-              📒 دفتر المزارع
+              🧪 {t.nav.mobeedAlyawm}
             </Link>
             <Link href="/farm-alert" className="text-orange-600 hover:text-orange-700 transition-colors text-sm font-medium font-cairo">
-              🌡️ إنذار المزارع
+              🌡️ {t.nav.farmAlert}
             </Link>
+            
+            {/* Language Switcher */}
+            <LanguageSwitcher />
             
             {/* AUTH DISABLED: أزرار تسجيل الدخول مخفية - الكود محفوظ للرجوع له لاحقاً */}
             {AUTH_ENABLED && (
@@ -131,8 +125,10 @@ export default function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 text-soil"
+            aria-label={isMobileMenuOpen ? (language === 'ar' ? 'إغلاق القائمة' : 'Close menu') : (language === 'ar' ? 'فتح القائمة' : 'Open menu')}
+            aria-expanded={isMobileMenuOpen}
           >
-            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg aria-hidden="true" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               {isMobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -152,14 +148,15 @@ export default function Header() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="ابحث..."
+                  placeholder={language === 'ar' ? 'ابحث...' : 'Search...'}
                   className="w-full px-4 py-2 pr-10 text-sm border border-soil/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-growth bg-white font-noto"
                 />
                 <button
                   type="submit"
                   className="absolute inset-y-0 right-0 flex items-center pr-3 text-soil/60"
+                  aria-label={language === 'ar' ? 'بحث' : 'Search'}
                 >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg aria-hidden="true" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </button>
@@ -169,82 +166,52 @@ export default function Header() {
             {/* Mobile Navigation */}
             <nav className="flex flex-col gap-2">
               <Link
-                href="/products"
-                className="px-4 py-2 text-soil/70 hover:bg-beige-dark rounded-lg font-noto"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                المنتجات
-              </Link>
-              <Link
-                href="/articles"
-                className="px-4 py-2 text-soil/70 hover:bg-beige-dark rounded-lg font-noto"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                المقالات
-              </Link>
-              <Link
-                href="/experts"
-                className="px-4 py-2 text-soil/70 hover:bg-beige-dark rounded-lg font-noto"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                الخبراء
-              </Link>
-              <Link
                 href="/library"
                 className="px-4 py-2 text-growth hover:bg-growth/5 rounded-lg font-medium font-cairo"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                المكتبة الزراعية
-              </Link>
-              <Link
-                href="/soil-types"
-                className="px-4 py-2 text-soil hover:bg-soil/5 rounded-lg font-medium font-cairo"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                دليل التربة
+                {t.nav.library}
               </Link>
               <Link
                 href="/calculator"
                 className="px-4 py-2 text-growth hover:bg-growth/5 rounded-lg font-medium font-cairo"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                الحاسبة
+                {t.nav.calculator}
               </Link>
               <Link
-                href="/ask-murad"
+                href="/fertilizer-calculator"
+                className="px-4 py-2 text-growth hover:bg-growth/5 rounded-lg font-medium font-cairo"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t.nav.fertilizerCalc}
+              </Link>
+              <Link
+                href="/soil-types"
                 className="px-4 py-2 text-soil hover:bg-soil/5 rounded-lg font-medium font-cairo"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                اسأل مراد ⭐
+                {t.nav.soilTypes}
               </Link>
               <Link
                 href="/mobeed-alyawm"
                 className="px-4 py-2 text-growth hover:bg-growth/5 rounded-lg font-medium font-cairo"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                🧪 مبيد اليوم
-              </Link>
-              <Link
-                href="/farm-calculator"
-                className="px-4 py-2 text-soil hover:bg-soil/5 rounded-lg font-medium font-cairo"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                🧮 حِسبة المزرعة
-              </Link>
-              <Link
-                href="/farmer-notebook"
-                className="px-4 py-2 text-soil hover:bg-soil/5 rounded-lg font-medium font-cairo"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                📒 دفتر المزارع
+                🧪 {t.nav.mobeedAlyawm}
               </Link>
               <Link
                 href="/farm-alert"
                 className="px-4 py-2 text-orange-600 hover:bg-orange-50 rounded-lg font-medium font-cairo"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                🌡️ إنذار المزارع
+                🌡️ {t.nav.farmAlert}
               </Link>
+              
+              {/* Language Switcher - Mobile */}
+              <div className="px-4 py-2">
+                <LanguageSwitcher />
+              </div>
               
               {/* AUTH DISABLED: أزرار تسجيل الدخول مخفية - الكود محفوظ للرجوع له لاحقاً */}
               {AUTH_ENABLED && (
