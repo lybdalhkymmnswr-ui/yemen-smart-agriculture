@@ -21,6 +21,16 @@ const FERTILIZER_TYPE_FACTORS = {
   'محبب': 1.0,
 };
 
+// تصنيف التربة للرسالة
+const SOIL_CATEGORIES: Record<string, string> = {
+  'طينية ثقيلة': 'الطينية',
+  'طينية': 'الطينية',
+  'متوسطة': 'الجبلية',
+  'رملية': 'الرملية',
+  'مختلطة': 'المختلطة',
+  'حجرية': 'الجبلية',
+};
+
 const SOIL_TYPES = ['طينية ثقيلة', 'طينية', 'متوسطة', 'رملية', 'مختلطة', 'حجرية'];
 const SALINITY_LEVELS = ['منخفضة', 'متوسطة', 'عالية'];
 const TREE_AGES = ['صغيرة', 'متوسطة', 'كبيرة'];
@@ -28,7 +38,7 @@ const QAT_STAGES = ['بقشة', 'بلوط', 'عادي'];
 const FERTILIZER_TYPES = ['ذواب', 'محبب'];
 
 export default function QatFertilizerCalculator() {
-  // المدخلات (9 حقول)
+  // المدخلات (8 حقول - بدون ملوحة التربة في الواجهة الأمامية حسب الطلب الجديد)
   const [length, setLength] = useState<number>(10);
   const [width, setWidth] = useState<number>(5);
   const [plotCount, setPlotCount] = useState<number>(1);
@@ -45,6 +55,7 @@ export default function QatFertilizerCalculator() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [results, setResults] = useState<Record<string, any> | null>(null);
   const [showResults, setShowResults] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   const calculateFertilizer = () => {
     // 1. حساب عدد الأشجار (الطريقة اليمنية)
@@ -94,6 +105,9 @@ export default function QatFertilizerCalculator() {
     const perSqMeter_g = (finalFertilizer_kg * 1000) / totalArea;
     const perTree_g = totalTrees > 0 ? (finalFertilizer_kg * 1000) / totalTrees : 0;
 
+    // تصنيف التربة للرسالة
+    const soilCategory = SOIL_CATEGORIES[soilType] || 'المتوسطة';
+
     setResults({
       // معلومات البرجة
       length,
@@ -104,6 +118,7 @@ export default function QatFertilizerCalculator() {
       
       // المدخلات
       soilType,
+      soilCategory,
       salinity,
       treeAge,
       qatStage,
@@ -111,11 +126,12 @@ export default function QatFertilizerCalculator() {
       fertilizerType,
       
       // النتائج
-      finalFertilizer_kg: finalFertilizer_kg.toFixed(2),
+      finalFertilizer_kg: finalFertilizer_kg.toFixed(1),
       perSqMeter_g: perSqMeter_g.toFixed(1),
       perTree_g: perTree_g.toFixed(1),
       totalDoses,
       perDose_kg: perDose_kg.toFixed(2),
+      microElements_g: stageReq.micro,
       
       // التحذيرات
       salinityWarning: salinityData.warning,
@@ -125,6 +141,7 @@ export default function QatFertilizerCalculator() {
     });
 
     setShowResults(true);
+    setShowDetails(false);
   };
 
   const getIrrigationNote = (soil: string): string => {
@@ -159,10 +176,10 @@ export default function QatFertilizerCalculator() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* طول البرجة */}
+              {/* طول الجربة */}
               <div>
                 <label className="block text-sm font-medium text-earth-700 mb-1">
-                  طول البرجة (متر)
+                  طول الجربة (متر)
                 </label>
                 <input
                   type="number"
@@ -174,10 +191,10 @@ export default function QatFertilizerCalculator() {
                 />
               </div>
 
-              {/* عرض البرجة */}
+              {/* عرض الجربة */}
               <div>
                 <label className="block text-sm font-medium text-earth-700 mb-1">
-                  عرض البرجة (متر)
+                  عرض الجربة (متر)
                 </label>
                 <input
                   type="number"
@@ -189,10 +206,10 @@ export default function QatFertilizerCalculator() {
                 />
               </div>
 
-              {/* عدد البرجات */}
+              {/* عدد الجربات */}
               <div>
                 <label className="block text-sm font-medium text-earth-700 mb-1">
-                  عدد البرجات
+                  عدد الجربات
                 </label>
                 <input
                   type="number"
@@ -330,104 +347,110 @@ export default function QatFertilizerCalculator() {
                 احسب كمية السماد
               </button>
             </div>
+
+            {/* النتيجة المختصرة - تظهر فوراً تحت الزر */}
+            {showResults && results && (
+              <div className="mt-8 space-y-4">
+                {/* الرسالة الرئيسية */}
+                <div className="bg-green-50 border-2 border-green-400 rounded-xl p-5 text-center">
+                  <p className="text-lg font-bold text-green-800 mb-3">
+                    ✅ التركيبة {results.npk} مناسبة تماماً لتربتك {results.soilCategory}!
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-4 text-lg">
+                    <span className="bg-white px-4 py-2 rounded-lg shadow">
+                      🌳 <strong>{results.totalTrees}</strong> شجرة
+                    </span>
+                    <span className="bg-white px-4 py-2 rounded-lg shadow">
+                      💊 <strong>{results.finalFertilizer_kg}</strong> كيلو
+                    </span>
+                    <span className="bg-white px-4 py-2 rounded-lg shadow">
+                      ⏰ <strong>{results.totalDoses}</strong> دفعات كل 15 يوم
+                    </span>
+                  </div>
+                </div>
+
+                {/* منبه الري الفوري */}
+                <div className="bg-blue-50 border border-blue-300 rounded-xl p-4">
+                  <p className="text-blue-800 font-bold text-center">
+                    💧 سقي فوراً خلال 30 دقيقة بعد التسميد
+                  </p>
+                  <p className="text-blue-700 text-center text-sm mt-1">
+                    {results.irrigationNote}
+                  </p>
+                </div>
+
+                {/* رسائل التوعية */}
+                <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 space-y-2">
+                  <p className="text-amber-800">
+                    ⚠️ <strong>الجودة ضرورية</strong> – جرب كيلو أولاً من سماد موثوق قبل أن تشتري الكمية الكاملة
+                  </p>
+                  <p className="text-amber-700 text-sm">
+                    💡 السماد الرخيص غالباً ما يكون بدون عناصر صغرى أو مغشوش
+                  </p>
+                  <p className="text-amber-700 text-sm">
+                    ✅ اطلب سماد فيه شعار المصنع وتاريخ صلاحية واضح
+                  </p>
+                </div>
+
+                {/* تحذير الملوحة إن وجد */}
+                {results.salinityWarning && (
+                  <div className="bg-red-50 border border-red-300 rounded-xl p-4">
+                    <p className="text-red-800 font-bold">
+                      ⚠️ تحذير الملوحة: {results.salinityWarning}
+                    </p>
+                  </div>
+                )}
+
+                {/* أزرار الإجراءات */}
+                <div className="flex flex-wrap justify-center gap-4 mt-4">
+                  <button
+                    onClick={() => setShowDetails(!showDetails)}
+                    className="bg-gray-100 hover:bg-gray-200 text-earth-700 font-bold py-2 px-6 rounded-lg transition-colors border border-gray-300"
+                  >
+                    {showDetails ? '🔼 إخفاء التفاصيل' : '🔽 تفاصيل أكثر'}
+                  </button>
+                </div>
+
+                {/* التفاصيل الإضافية (مخفية افتراضياً) */}
+                {showDetails && (
+                  <div className="bg-white border border-gray-200 rounded-xl p-6 mt-4 space-y-4">
+                    <h3 className="text-lg font-bold text-earth-800 border-b pb-2">📊 التفاصيل الكاملة</h3>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* معلومات المزرعة */}
+                      <div className="bg-earth-50 p-4 rounded-lg">
+                        <h4 className="font-bold text-earth-700 mb-2">معلومات المزرعة</h4>
+                        <p className="text-sm text-earth-600">الأبعاد: {results.length} × {results.width} متر</p>
+                        <p className="text-sm text-earth-600">عدد الجربات: {results.plotCount}</p>
+                        <p className="text-sm text-earth-600">المساحة الكلية: {results.totalArea} م²</p>
+                        <p className="text-sm text-earth-600">نوع التربة: {results.soilType}</p>
+                        <p className="text-sm text-earth-600">المرحلة: {results.qatStage}</p>
+                      </div>
+
+                      {/* الكميات التفصيلية */}
+                      <div className="bg-growth-50 p-4 rounded-lg">
+                        <h4 className="font-bold text-growth-700 mb-2">الكميات التفصيلية</h4>
+                        <p className="text-sm text-earth-600">الكمية لكل متر مربع: <strong>{results.perSqMeter_g} غرام</strong></p>
+                        <p className="text-sm text-earth-600">الكمية لكل شجرة: <strong>{results.perTree_g} غرام</strong></p>
+                        <p className="text-sm text-earth-600">الكمية لكل دفعة: <strong>{results.perDose_kg} كيلو</strong></p>
+                        <p className="text-sm text-earth-600">العناصر الصغرى المطلوبة: <strong>{results.microElements_g} غ/م²</strong></p>
+                      </div>
+                    </div>
+
+                    {/* منبه الري المفصل */}
+                    <div className="bg-cyan-50 border border-cyan-200 rounded-lg p-4">
+                      <h4 className="font-bold text-cyan-800 mb-2">💧 منبه الري المفصل</h4>
+                      <ul className="text-cyan-700 space-y-1 text-sm">
+                        <li>• اسقِ خلال <strong>30-60 دقيقة</strong> بعد التسميد</li>
+                        <li>• {results.irrigationNote}</li>
+                        <li>• لا تغمر التربة بالماء - ري خفيف ومنتظم أفضل</li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-
-          {/* النتائج */}
-          {showResults && results && (
-            <div className="space-y-6">
-              {/* بطاقة النتائج النهائية */}
-              <div className="bg-white rounded-xl shadow-lg p-6 border-r-4 border-growth-600">
-                <h2 className="text-xl font-bold text-earth-800 mb-4 flex items-center gap-2">
-                  <span className="text-2xl">📊</span>
-                  نتائج الحساب
-                </h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                  <div className="bg-earth-50 p-4 rounded-lg">
-                    <h3 className="font-bold text-earth-700 mb-2">معلومات البرجة</h3>
-                    <p className="text-sm text-earth-600">الأبعاد: {results.length} × {results.width} متر</p>
-                    <p className="text-sm text-earth-600">عدد البرجات: {results.plotCount}</p>
-                    <p className="text-sm text-earth-600">المساحة الكلية: {results.totalArea} م²</p>
-                    <p className="text-sm text-earth-600 font-bold">عدد الأشجار: {results.totalTrees} شجرة</p>
-                  </div>
-
-                  <div className="bg-earth-50 p-4 rounded-lg">
-                    <h3 className="font-bold text-earth-700 mb-2">المدخلات</h3>
-                    <p className="text-sm text-earth-600">المرحلة: {results.qatStage}</p>
-                    <p className="text-sm text-earth-600">تركيبة السماد: {results.npk}</p>
-                    <p className="text-sm text-earth-600">نوع السماد: {results.fertilizerType}</p>
-                    <p className="text-sm text-earth-600">ملوحة التربة: {results.salinity}</p>
-                  </div>
-                </div>
-
-                {/* النتائج الرئيسية */}
-                <div className="bg-growth-50 border border-growth-200 rounded-lg p-4 mb-4">
-                  <h3 className="font-bold text-growth-800 mb-3 text-lg">الكمية المطلوبة</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-                    <div className="bg-white p-3 rounded-lg shadow">
-                      <p className="text-2xl font-bold text-growth-700">{results.finalFertilizer_kg}</p>
-                      <p className="text-sm text-earth-600">كغ/شهر</p>
-                    </div>
-                    <div className="bg-white p-3 rounded-lg shadow">
-                      <p className="text-2xl font-bold text-growth-700">{results.perSqMeter_g}</p>
-                      <p className="text-sm text-earth-600">غرام/م²</p>
-                    </div>
-                    <div className="bg-white p-3 rounded-lg shadow">
-                      <p className="text-2xl font-bold text-growth-700">{results.perTree_g}</p>
-                      <p className="text-sm text-earth-600">غرام/شجرة</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* جدول الدفعات */}
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-                  <h3 className="font-bold text-amber-800 mb-2">جدول الدفعات (شهرياً)</h3>
-                  <p className="text-earth-700">
-                    <span className="font-bold">{results.totalDoses} دفعات</span> × 
-                    <span className="font-bold text-growth-700"> {results.perDose_kg} كغ</span> لكل دفعة
-                  </p>
-                  <p className="text-sm text-earth-600 mt-1">
-                    كل 15 يوم (موسم الصيف)
-                  </p>
-                </div>
-              </div>
-
-              {/* بطاقة التجربة الذكية */}
-              <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                <h2 className="text-lg font-bold text-blue-800 mb-2 flex items-center gap-2">
-                  <span className="text-xl">💡</span>
-                  التجربة الذكية (إلزامي قبل التسميد الكامل)
-                </h2>
-                <p className="text-blue-700">
-                  قبل تسميد كل الأشجار، جرّب على <strong>3-5 أشجار فقط</strong> وانتظر 7-10 أيام.
-                  إذا كانت النتيجة جيدة، أكمل على الباقي.
-                </p>
-              </div>
-
-              {/* بطاقة منبه الري */}
-              <div className="bg-cyan-50 border border-cyan-200 rounded-xl p-6">
-                <h2 className="text-lg font-bold text-cyan-800 mb-2 flex items-center gap-2">
-                  <span className="text-xl">💧</span>
-                  منبّه الري الفوري
-                </h2>
-                <ul className="text-cyan-700 space-y-1">
-                  <li>• اسقِ خلال <strong>30-60 دقيقة</strong> بعد التسميد</li>
-                  <li>• {results.irrigationNote}</li>
-                </ul>
-              </div>
-
-              {/* تحذير الملوحة */}
-              {results.salinityWarning && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                  <h2 className="text-lg font-bold text-red-800 mb-2 flex items-center gap-2">
-                    <span className="text-xl">⚠️</span>
-                    تحذير الملوحة
-                  </h2>
-                  <p className="text-red-700">{results.salinityWarning}</p>
-                </div>
-              )}
-            </div>
-          )}
         </div>
       </main>
     </div>
