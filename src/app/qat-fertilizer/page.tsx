@@ -42,7 +42,8 @@ export default function QatFertilizerCalculator() {
   const [fertilizerType, setFertilizerType] = useState<string>('محبب');
 
   // النتائج
-  const [results, setResults] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [results, setResults] = useState<Record<string, any> | null>(null);
   const [showResults, setShowResults] = useState(false);
 
   const calculateFertilizer = () => {
