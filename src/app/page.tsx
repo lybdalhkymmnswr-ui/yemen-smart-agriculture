@@ -200,7 +200,7 @@ export default function HomePage() {
               </Link>
             </div>
 
-            {/* Tool 3: Fertilizer Calculator */}
+            {/* Tool 3: Qat Fertilizer Calculator */}
             <div className="bg-white rounded-2xl shadow-lg p-6 border-2 border-growth/10 hover:border-growth/30 transition-colors">
               <div className="text-center mb-4">
                 <div className="w-16 h-16 mx-auto mb-3 bg-growth/10 rounded-full flex items-center justify-center">
@@ -209,19 +209,19 @@ export default function HomePage() {
                 <span className="inline-block px-3 py-1 bg-growth/10 text-growth text-sm font-medium rounded-full mb-2 font-cairo">
                   مجاني
                 </span>
-                <h3 className="text-lg font-bold text-soil font-cairo">حاسبة الأسمدة</h3>
+                <h3 className="text-lg font-bold text-soil font-cairo">حاسبة أسمدة القات</h3>
               </div>
               <p className="text-soil/70 text-center text-sm mb-4 font-noto">
-                حدد نوع السماد المناسب حسب مرحلة النمو ونوع التربة.
+                احسب كمية السماد ومواعيد الري لأشجار القات في ثوانٍ.
               </p>
               <p className="text-xs text-soil/60 text-center mb-4 font-noto">
-                <strong>متى تستخدمها؟</strong> لاختيار السماد الأنسب لمحصولك.
+                <strong>متى تستخدمها؟</strong> لتحديد الكمية المناسبة لمزرعتك.
               </p>
               <Link
-                href="/fertilizer-calculator"
+                href="/qat-fertilizer"
                 className="block w-full text-center py-2.5 bg-growth text-white rounded-lg hover:bg-growth-dark transition-colors font-medium text-sm font-cairo"
               >
-                حاسبة الأسمدة
+                حاسبة أسمدة القات
               </Link>
             </div>
 
